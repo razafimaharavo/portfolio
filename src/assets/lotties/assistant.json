@@ -1,0 +1,11 @@
+{
+  "name": "Assistant IA",
+  "type": "audio_wave_voice",
+  "loop": true,
+  "theme": "nebula_wave",
+  "elements": [
+    {"type": "wave_bar", "height_ratio": 0.8, "frequency": 1.4, "color": "#06B6D4"},
+    {"type": "wave_bar", "height_ratio": 1.2, "frequency": 1.8, "color": "#8B5CF6"},
+    {"type": "wave_bar", "height_ratio": 0.6, "frequency": 1.2, "color": "#3B82F6"}
+  ]
+}

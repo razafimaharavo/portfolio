@@ -1,0 +1,11 @@
+{
+  "name": "Introduction",
+  "type": "shapes_grid",
+  "loop": true,
+  "theme": "modern_developer",
+  "elements": [
+    {"type": "circle", "color": "#3B82F6", "speed": 1.2},
+    {"type": "square", "color": "#10B981", "speed": 1.5},
+    {"type": "triangle", "color": "#F59E0B", "speed": 1.0}
+  ]
+}

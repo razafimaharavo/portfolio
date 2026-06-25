@@ -1,0 +1,6 @@
+{
+  "name": "Razma Portfolio",
+  "description": "Portfolio professionnel interactif avec assistant vocal Razma IA, géolocalisation et intégrations avancées.",
+  "requestFramePermissions": ["geolocation", "microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

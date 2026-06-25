@@ -1,0 +1,10 @@
+{
+  "name": "Chargement",
+  "type": "pulse_particles",
+  "loop": true,
+  "theme": "glow_spinner",
+  "elements": [
+    {"type": "particle_ring", "color": "#6366F1", "radius": 40},
+    {"type": "glow_center", "color": "#EC4899", "radius": 24}
+  ]
+}

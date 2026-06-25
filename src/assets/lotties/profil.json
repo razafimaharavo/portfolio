@@ -1,0 +1,10 @@
+{
+  "name": "Section Profil",
+  "type": "bento_shift",
+  "loop": true,
+  "theme": "geometric_code",
+  "elements": [
+    {"type": "hex_pattern", "rows": 4, "cols": 4, "color": "#10B981"},
+    {"type": "interactive_float", "color": "#F43F5E", "offset": 15}
+  ]
+}
