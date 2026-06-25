@@ -2,6 +2,103 @@ import { Request, Response } from "express";
 import { sendContactEmail } from "../mail/mailer.ts";
 import { fetchWeather } from "../weather/weatherService.ts";
 import { askRazma, generateVoice } from "../ai/aiService.ts";
+import fs from "fs/promises";
+import path from "path";
+
+const titleMap: Record<string, string> = {
+  "README": "README",
+  "Architecture": "Architecture",
+  "Frontend": "Frontend",
+  "Backend": "Backend",
+  "RazmaIA": "Razma IA",
+  "VoiceAssistant": "Voice Assistant",
+  "EmailSystem": "Email System",
+  "Localization": "Localization",
+  "Translations": "Translations",
+  "Weather": "Weather",
+  "Geolocation": "Geolocation",
+  "ThreeJS": "ThreeJS",
+  "Deployment": "Deployment",
+  "EnvironmentVariables": "Environment Variables"
+};
+
+export async function handleGetDocsList(req: Request, res: Response): Promise<void> {
+  try {
+    const docsDir = path.join(process.cwd(), "docs");
+    const files = await fs.readdir(docsDir);
+    
+    const mdFiles = files
+      .filter(file => file.endsWith(".md"))
+      .map(file => {
+        const id = path.basename(file, ".md");
+        let title = titleMap[id] || id.replace(/([A-Z])/g, " $1").trim();
+        // Capitalize first letter of title if fallback was used
+        if (!titleMap[id] && title.length > 0) {
+          title = title.charAt(0).toUpperCase() + title.slice(1);
+        }
+        return { id, title };
+      });
+
+    // Order of documents as requested or logical flow
+    const preferredOrder = [
+      "README",
+      "Architecture",
+      "Frontend",
+      "Backend",
+      "RazmaIA",
+      "VoiceAssistant",
+      "EmailSystem",
+      "Localization",
+      "Translations",
+      "Weather",
+      "Geolocation",
+      "ThreeJS",
+      "Deployment",
+      "EnvironmentVariables"
+    ];
+
+    mdFiles.sort((a, b) => {
+      const indexA = preferredOrder.indexOf(a.id);
+      const indexB = preferredOrder.indexOf(b.id);
+      if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+      if (indexA !== -1) return -1;
+      if (indexB !== -1) return 1;
+      return a.title.localeCompare(b.title);
+    });
+
+    res.status(200).json(mdFiles);
+  } catch (err: any) {
+    res.status(500).json({ error: "Impossible de lister la documentation.", details: err?.message || String(err) });
+  }
+}
+
+export async function handleGetDocContent(req: Request, res: Response): Promise<void> {
+  try {
+    const { id } = req.params;
+    
+    // Safety check for path traversal
+    if (!id || !/^[a-zA-Z0-9_-]+$/.test(id)) {
+      res.status(400).json({ error: "Identifiant de document invalide." });
+      return;
+    }
+
+    const docsDir = path.join(process.cwd(), "docs");
+    const filePath = path.join(docsDir, `${id}.md`);
+
+    try {
+      const content = await fs.readFile(filePath, "utf-8");
+      let title = titleMap[id] || id.replace(/([A-Z])/g, " $1").trim();
+      if (!titleMap[id] && title.length > 0) {
+        title = title.charAt(0).toUpperCase() + title.slice(1);
+      }
+      res.status(200).json({ id, title, content });
+    } catch {
+      res.status(404).json({ error: "Document non trouvé." });
+    }
+  } catch (err: any) {
+    res.status(500).json({ error: "Erreur lors du chargement du document.", details: err?.message || String(err) });
+  }
+}
 
 export async function handleContactForm(req: Request, res: Response): Promise<void> {
   try {

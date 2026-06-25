@@ -1,5 +1,5 @@
 import express from "express";
-import { handleContactForm, handleWeatherLookup, handleAIChat, handleVoiceFetch } from "../controllers/portfolioController.ts";
+import { handleContactForm, handleWeatherLookup, handleAIChat, handleVoiceFetch, handleGetDocsList, handleGetDocContent } from "../controllers/portfolioController.ts";
 
 const router = express.Router();
 
@@ -9,4 +9,9 @@ router.post("/weather", handleWeatherLookup);
 router.post("/chat", handleAIChat);
 router.post("/voice", handleVoiceFetch);
 
+// Documentation endpoints
+router.get("/docs", handleGetDocsList);
+router.get("/docs/:id", handleGetDocContent);
+
 export default router;
+

@@ -20,8 +20,14 @@ import { useActiveSection } from "./hooks/useActiveSection.ts";
 import { useRandomProjects } from "./hooks/useRandomProjects.ts";
 
 import { handleScrollToSection } from "./utils/scroll.ts";
+import DocumentationPage from "./pages/DocumentationPage.tsx";
 
 export default function App() {
+  const isDocsPage = window.location.pathname === "/docs" || window.location.pathname.startsWith("/docs");
+  if (isDocsPage) {
+    return <DocumentationPage />;
+  }
+
   // Theme Management
   const { theme, setTheme } = useTheme();
 
