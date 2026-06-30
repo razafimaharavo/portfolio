@@ -8,6 +8,9 @@ export interface MailPayload {
   message: string;
   ip: string;
   country: string;
+  city?: string;
+  browser?: string;
+  platform?: string;
 }
 
 export async function sendContactEmail(payload: MailPayload): Promise<{ success: boolean; previewUrl?: string; error?: string }> {
@@ -58,9 +61,12 @@ export async function sendContactEmail(payload: MailPayload): Promise<{ success:
         ${payload.message}
 
         Détails Techniques:
-        Date: ${new Date().toLocaleString("fr-FR")}
-        IP Approximative: ${payload.ip}
-        Pays: ${payload.country}
+        IP publique : ${payload.ip}
+        Pays : ${payload.country}
+        Ville : ${payload.city || "Non identifiée"}
+        Navigateur : ${payload.browser || "Non identifié"}
+        Plateforme : ${payload.platform || "Non identifiée"}
+        Date : ${new Date().toLocaleString("fr-FR")}
       `,
       html: `
         <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 8px; padding: 20px; background-color: #f9f9f9;">
@@ -91,8 +97,11 @@ export async function sendContactEmail(payload: MailPayload): Promise<{ success:
 
           <div style="font-size: 11px; color: #777; border-top: 1px solid #eee; padding-top: 10px;">
             <strong>Détails techniques :</strong><br/>
-            IP approximative: ${payload.ip}<br/>
-            Pays: ${payload.country}
+            IP publique : ${payload.ip}<br/>
+            Pays : ${payload.country}<br/>
+            Ville : ${payload.city || "Non identifiée"}<br/>
+            Navigateur : ${payload.browser || "Non identifié"}<br/>
+            Plateforme : ${payload.platform || "Non identifiée"}
           </div>
         </div>
       `,
