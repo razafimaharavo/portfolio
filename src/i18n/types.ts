@@ -118,6 +118,10 @@ export interface TranslationDictionary {
     p1F2: string;
     p1F3: string;
     p1F4: string;
+    p1F5?: string;
+    p1F6?: string;
+    p1F7?: string;
+    p1F8?: string;
     p2Name: string;
     p2Short: string;
     p2Long: string;
@@ -125,6 +129,10 @@ export interface TranslationDictionary {
     p2F2: string;
     p2F3: string;
     p2F4: string;
+    p2F5?: string;
+    p2F6?: string;
+    p2F7?: string;
+    p2F8?: string;
     p3Name: string;
     p3Short: string;
     p3Long: string;

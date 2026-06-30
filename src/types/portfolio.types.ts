@@ -1,4 +1,5 @@
 export interface Profile {
+  avatar: string;
   name: string;
   title: string;
   specialties: string[];

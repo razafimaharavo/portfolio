@@ -1,7 +1,7 @@
 {
   "profile": {
     "avatar": "src/public/images/logo/avatar.jpg",
-    "name": "Marion Razafimaharavo",
+    "name": "Razafimaharavo Marion",
     "title": "Développeur Full Stack",
     "specialties": ["React", "Node.js", "Bases de Données", "Architectures Web Modernes"],
     "bio": "Ingénieur logiciel spécialisé dans la conception d'architectures web modernes et de plateformes d'envergure. J'excelle de l'élaboration d'interfaces frontend interactives au déploiement de backends sécurisés, résilients et hautement performants.",
@@ -70,32 +70,49 @@
     {
       "id": "project-desktop-1",
       "category": "desktop",
-      "name": "DevStudio Pro",
-      "shortDescription": "Un IDE minimaliste pour développeurs Node.js avec terminal intégré et gestion de paquets graphique.",
-      "description": "DevStudio Pro est un environnement de développement intégré conçu pour simplifier les workflows Node.js. Il inclut un éditeur de code haute performance, un terminal virtuel sécurisé, ainsi qu'une interface graphique interactive pour surveiller et gérer les paquets npm en temps réel, optimisant ainsi le temps des développeurs.",
-      "image": "https://images.unsplash.com/photo-1607799279861-4dd421887fb3?auto=format&fit=crop&w=800&q=80",
+      "name": "Système de Gestion des Ressources Humaines",
+      "shortDescription": "Application professionnelle permettant de centraliser la gestion des employés, du pointage, des congés et de la paie au sein d'une interface intuitive destinée aux services des ressources humaines.",
+      "description": "Le Système de Gestion des Ressources Humaines est une application Desktop développée pour simplifier l'administration du personnel au sein d'une entreprise. Elle permet de gérer efficacement les informations des employés, le pointage automatisé, les demandes de congés, les fiches de paie ainsi que l'archivage sécurisé des contrats de travail. L'application adapte automatiquement son interface selon le profil de l'utilisateur (administrateur, responsable RH ou gestionnaire), tout en proposant des tableaux de bord statistiques facilitant le suivi des effectifs, des présences et des performances.",
+      "image": "src/public/images/desktop/RH_image.webp",
       "gallery": [
-        "https://images.unsplash.com/photo-1607799279861-4dd421887fb3?auto=format&fit=crop&w=800&q=80",
-        "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80"
+        "src/public/images/desktop/RH_image.webp"
       ],
-      "technologies": ["Electron", "React", "TypeScript", "Xterm.js", "Tailwind CSS"],
-      "features": ["Éditeur de code intuitif", "Terminal multi-onglets", "Installateur visuel de scripts npm", "Thème personnalisable"],
+      "technologies": ["Java", "JavaFX", "CSS"],
+      "features": [
+        "Gestion complète des employés",
+        "Pointage automatisé",
+        "Gestion des congés et absences",
+        "Génération des fiches de paie",
+        "Archivage numérique des contrats",
+        "Tableau de bord avec statistiques",
+        "Gestion des profils utilisateurs",
+        "Recherche et filtrage avancés"
+      ],
       "github": "https://github.com/razafimaharavo-marion/devstudio-pro",
       "demo": "https://devstudio-demo.example.com"
     },
     {
       "id": "project-desktop-2",
       "category": "desktop",
-      "name": "Architect3D Viewer",
-      "shortDescription": "Visualiseur de modèles de structures 3D interactif pour cabinets d'architecture.",
-      "description": "Architect3D Viewer est une solution ultra-légère pour ordinateurs permettant aux architectes et ingénieurs de charger des fichiers CAO/BIM et de naviguer de manière fluide au sein de structures complexes. Conçu sur une base sécurisée et ultra-performante.",
-      "image": "https://images.unsplash.com/photo-1503387762-592dec58ef4e?auto=format&fit=crop&w=800&q=80",
+      "name": "Restaurant Manager Pro",
+      "shortDescription": "Solution complète de gestion de restaurant permettant de gérer les commandes, les tables, les menus, les stocks et les paiements dans une interface moderne et rapide.",
+      "description": "Restaurant Manager Pro est une application Desktop conçue pour optimiser la gestion quotidienne d'un restaurant. Elle centralise la prise de commandes, l'organisation des tables, la gestion des menus, le suivi des stocks de cuisine ainsi que les opérations de paiement. Grâce à une interface fluide et ergonomique, le personnel peut traiter rapidement les commandes, suivre les disponibilités des produits et imprimer automatiquement les tickets de caisse, améliorant ainsi l'efficacité du service et l'expérience des clients.",
+      "image": "src/public/images/desktop/Resto_image1.png",
       "gallery": [
-        "https://images.unsplash.com/photo-1503387762-592dec58ef4e?auto=format&fit=crop&w=800&q=80",
-        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
+        "src/public/images/desktop/Resto_image1.png",
+        "src/public/images/desktop/Resto_image2.png"
       ],
-      "technologies": ["Tauri", "Rust", "Three.js", "WebGL", "React"],
-      "features": ["Support de fichiers OBJ/FBX", "Contrôles de caméra orbitaux", "Calcul d'éclairage en temps réel", "Outil de découpe en plans"],
+      "technologies": ["C#", ".NET", "Guna UI"],
+      "features": [
+        "Gestion des commandes clients",
+        "Gestion des menus",
+        "Gestion des tables",
+        "Gestion des stocks de cuisine",
+        "Gestion des paiements",
+        "Impression automatique des tickets",
+        "Tableau de bord de suivi",
+        "Interface moderne et intuitive"
+      ],
       "github": "https://github.com/razafimaharavo-marion/architect3d",
       "demo": "https://architect3d-demo.example.com"
     },

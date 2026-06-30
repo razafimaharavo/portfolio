@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { sendContactEmail } from "../mail/mailer.ts";
 import { fetchWeather } from "../weather/weatherService.ts";
 import { askRazma, generateVoice } from "../ai/aiService.ts";
+import { resolveGeoLocation, parseUserAgent } from "../services/geoService.ts";
 import fs from "fs/promises";
 import path from "path";
 
@@ -118,19 +119,23 @@ export async function handleContactForm(req: Request, res: Response): Promise<vo
     const rawIp = (req.headers["x-forwarded-for"] as string) || req.socket.remoteAddress || "127.0.0.1";
     const ip = rawIp.split(",")[0].trim();
 
-    // Approximate Country lookup from free IP API
-    let country = "Non identifiée";
-    try {
-      if (ip !== "127.0.0.1" && !ip.startsWith("192.168.") && !ip.startsWith("10.")) {
-        const geoIpRes = await fetch(`https://ipapi.co/${ip}/json/`);
-        if (geoIpRes.ok) {
-          const geoIpData = await geoIpRes.json();
-          country = geoIpData.country_name || "Non identifiée";
-        }
-      }
-    } catch {
-      // Fail silently for IP Country lookup
-    }
+    // Geolocation lookup
+    const geoData = await resolveGeoLocation(ip);
+    
+    // User Agent details
+    const uaHeader = req.headers["user-agent"];
+    const uaData = parseUserAgent(uaHeader);
+
+    // Diagnostic console logs (Development and analysis logging)
+    console.log("=================================");
+    console.log("Contact Form Diagnostic");
+    console.log("IP détectée :", ip);
+    console.log("Type IP :", geoData.ipType);
+    console.log("Geo Provider :", geoData.provider);
+    console.log("Geo Response :", geoData.geoResponse);
+    console.log("Pays :", geoData.country);
+    console.log("Ville :", geoData.city);
+    console.log("=================================");
 
     const result = await sendContactEmail({
       name,
@@ -138,7 +143,10 @@ export async function handleContactForm(req: Request, res: Response): Promise<vo
       subject,
       message,
       ip,
-      country,
+      country: geoData.country,
+      city: geoData.city,
+      browser: uaData.browser,
+      platform: uaData.platform
     });
 
     if (result.success) {

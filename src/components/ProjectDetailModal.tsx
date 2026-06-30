@@ -16,7 +16,7 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
   if (!project) return null;
 
   const getProjectDetailsTranslated = (propProject: Project) => {
-    const keyMap: Record<string, { name: string; short: string; long: string; f1: string; f2: string; f3: string; f4: string }> = {
+    const keyMap: Record<string, { name: string; short: string; long: string; f1: string; f2: string; f3: string; f4: string; f5?: string; f6?: string; f7?: string; f8?: string }> = {
       "project-desktop-1": {
         name: "projects.p1Name",
         short: "projects.p1Short",
@@ -25,6 +25,10 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
         f2: "projects.p1F2",
         f3: "projects.p1F3",
         f4: "projects.p1F4",
+        f5: "projects.p1F5",
+        f6: "projects.p1F6",
+        f7: "projects.p1F7",
+        f8: "projects.p1F8",
       },
       "project-desktop-2": {
         name: "projects.p2Name",
@@ -34,6 +38,10 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
         f2: "projects.p2F2",
         f3: "projects.p2F3",
         f4: "projects.p2F4",
+        f5: "projects.p2F5",
+        f6: "projects.p2F6",
+        f7: "projects.p2F7",
+        f8: "projects.p2F8",
       },
       "project-web-1": {
         name: "projects.p3Name",
@@ -75,11 +83,16 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
 
     const keys = keyMap[propProject.id];
     if (keys) {
+      const featureKeys = [keys.f1, keys.f2, keys.f3, keys.f4, keys.f5, keys.f6, keys.f7, keys.f8].filter(Boolean) as string[];
+      const features = featureKeys
+        .map(k => t(k))
+        .filter(val => val && !val.startsWith("projects."));
+        
       return {
         name: t(keys.name),
         shortDescription: t(keys.short),
         description: t(keys.long),
-        features: [t(keys.f1), t(keys.f2), t(keys.f3), t(keys.f4)]
+        features
       };
     }
 
