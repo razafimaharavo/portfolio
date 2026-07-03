@@ -7,6 +7,7 @@ export default defineConfig(() => {
   return {
     plugins: [react(), tailwindcss()],
     assetsInclude: ['**/*.lottie'],
+    publicDir: "src/public",
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),

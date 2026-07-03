@@ -1,6 +1,6 @@
 {
   "profile": {
-     "avatar": "src/public/images/logo/avatar.jpg",
+     "avatar": "/images/logo/avatar.jpg",
     "name": "Razafimaharavo Marion",
     "title": "Développeur Full Stack",
     "specialties": ["React", "Node.js", "Bases de Données", "Architectures Web Modernes"],
@@ -77,9 +77,9 @@
       "name": "Système de Gestion des Ressources Humaines",
       "shortDescription": "Application professionnelle permettant de centraliser la gestion des employés, du pointage, des congés et de la paie au sein d'une interface intuitive destinée aux services des ressources humaines.",
       "description": "Le Système de Gestion des Ressources Humaines est une application Desktop développée pour simplifier l'administration du personnel au sein d'une entreprise. Elle permet de gérer efficacement les informations des employés, le pointage automatisé, les demandes de congés, les fiches de paie ainsi que l'archivage sécurisé des contrats de travail. L'application adapte automatiquement son interface selon le profil de l'utilisateur (administrateur, responsable RH ou gestionnaire), tout en proposant des tableaux de bord statistiques facilitant le suivi des effectifs, des présences et des performances.",
-      "image": "src/public/images/desktop/RH_image.webp",
+      "image": "/images/desktop/RH_image.webp",
       "gallery": [
-        "src/public/images/desktop/RH_image.webp"
+        "/images/desktop/RH_image.webp"
       ],
       "technologies": ["Java", "JavaFX", "CSS"],
       "features": [
@@ -105,10 +105,10 @@
       "name": "Restaurant Manager Pro",
       "shortDescription": "Solution complète de gestion de restaurant permettant de gérer les commandes, les tables, les menus, les stocks et les paiements dans une interface moderne et rapide.",
       "description": "Restaurant Manager Pro est une application Desktop conçue pour optimiser la gestion quotidienne d'un restaurant. Elle centralise la prise de commandes, l'organisation des tables, la gestion des menus, le suivi des stocks de cuisine ainsi que les opérations de paiement. Grâce à une interface fluide et ergonomique, le personnel peut traiter rapidement les commandes, suivre les disponibilités des produits et imprimer automatiquement les tickets de caisse, améliorant ainsi l'efficacité du service et l'expérience des clients.",
-      "image": "src/public/images/desktop/Resto_image1.png",
+      "image": "/images/desktop/Resto_image1.png",
       "gallery": [
-        "src/public/images/desktop/Resto_image1.png",
-        "src/public/images/desktop/Resto_image2.png"
+        "/images/desktop/Resto_image1.png",
+        "/images/desktop/Resto_image2.png"
       ],
       "technologies": ["C#", ".NET", "Guna UI"],
       "features": [
@@ -134,10 +134,10 @@
       "name": "Menuiserie Gasy",
       "shortDescription": "Plateforme complète de gestion d'une entreprise de menuiserie, couvrant l'ensemble du cycle de production, de vente et de gestion des clients.",
       "description": "Menuiserie Gasy est une solution web conçue pour digitaliser les activités d'une entreprise de menuiserie. L'application permet de gérer efficacement les ventes de meubles, les commandes clients, la fabrication, les stocks, les achats, la facturation ainsi que le suivi de la production. Le système intègre un tableau de bord analytique offrant des statistiques détaillées sur les ventes, les bénéfices, les commandes et les performances de production. Une gestion multi-rôles sécurisée permet d'adapter les fonctionnalités selon le profil de chaque utilisateur (Administrateur, Employé, Responsable de production, Client). La plateforme comprend également un système de messagerie interne entre les clients et les employés, un panier d'achat intelligent, ainsi que des rapports automatiques quotidiens, hebdomadaires, mensuels et annuels facilitant la prise de décision.",
-      "image": "src/public/images/web/menuiserie1.png",
+      "image": "/images/web/menuiserie1.png",
       "gallery": [
-        "src/public/images/web/menuiserie1.png",
-        "src/public/images/web/menuiserie2.png"
+        "/images/web/menuiserie1.png",
+        "/images/web/menuiserie2.png"
       ],
       "technologies": ["Laravel", "React", "jQuery Ajax", "Bootstrap", "Chart.js", "PostgreSQL"],
       "features": [
@@ -167,9 +167,9 @@
       "name": "Tetris Master Online",
       "shortDescription": "Jeu Tetris moderne développé en JavaScript orienté objet avec animations fluides, effets sonores et gameplay évolutif directement dans le navigateur.",
       "description": "Tetris Master Online est une réinterprétation moderne du célèbre jeu de réflexion, entièrement développé avec JavaScript orienté objet et Canvas HTML5. Le jeu offre une expérience fluide et responsive sur ordinateur comme sur mobile. La difficulté augmente progressivement en fonction du score du joueur, rendant chaque partie plus dynamique. L'application intègre également des effets sonores, une musique d'ambiance, un système de score en temps réel ainsi que des commandes adaptées aussi bien au clavier qu'aux appareils tactiles grâce à des boutons interactifs directement intégrés à l'interface.",
-      "image": "src/public/images/web/tetris.png",
+      "image": "/images/web/tetris.png",
       "gallery": [
-        "src/public/images/web/tetris.png"
+        "/images/web/tetris.png"
       ],
       "technologies": ["HTML5", "CSS3", "JavaScript (POO)", "Canvas API"],
       "features": [
@@ -198,10 +198,10 @@
       "name": "Aura IA Hub",
       "shortDescription": "Assistant intelligent nouvelle génération intégrant des conversations vocales temps réel, génération d'images, assistance documentaire et services intelligents alimentés par Gemini AI.",
       "description": "Aura IA Hub est une plateforme d'intelligence artificielle conçue pour offer une expérience conversationnelle avancée en temps réel. L'assistant est capable de dialoguer naturellement par écrit ou par voix dans plusieurs langues, tout en affichant automatiquement les conversations sous forme de messages. Grâce à l'API Gemini, l'application peut générer des images, résumer des documents, synthétiser les conversations, créer des rappels d'alarme intelligents, fournir les conditions météorologiques d'une ville choisie et calculer des itinéraires vers une destination avec ouverture directe dans Google Maps. Les échanges sont optimisés pour offrir une interaction fluide, rapide et naturelle tout en centralisant plusieurs services d'assistance intelligente dans une seule plateforme.",
-      "image": "src/public/images/web/Aura_IA_1.png",
+      "image": "/images/web/Aura_IA_1.png",
       "gallery": [
-        "src/public/images/web/Aura_IA_2.png",
-        "src/public/images/web/Aura_IA_3.png"
+        "/images/web/Aura_IA_2.png",
+        "/images/web/Aura_IA_3.png"
       ],
       "technologies": ["React", "Firebase Firestore", "Gemini API", "Web Speech API", "Google Maps API", "Tailwind CSS"],
       "features": [
@@ -231,10 +231,10 @@
       "name": "SmartShop Mobile",
       "shortDescription": "Application mobile e-commerce moderne permettant aux utilisateurs de découvrir, rechercher et acheter des produits grâce à une interface fluide, intuitive et sécurisée.",
       "description": "SmartShop Mobile est une application de commerce électronique développée pour offrir une expérience d'achat rapide et agréable sur smartphone. Les utilisateurs peuvent parcourir un catalogue complet de produits, consulter les fiches détaillées, rechercher facilement des articles, gérer leur panier et passer leurs commandes depuis leur compte personnel. L'application met également en avant les produits les plus populaires grâce à un système de classement basé sur les recherches et les interactions des utilisateurs, facilitant ainsi la découverte des meilleures ventes et des tendances du moment. Grâce à une synchronisation en temps réel avec le backend, les informations relatives aux produits, aux stocks et aux commandes restent constamment à jour.",
-      "image": "src/public/images/mobile/image_cover_smartShop.png",
+      "image": "/images/mobile/image_cover_smartShop.png",
       "gallery": [
-        "src/public/images/mobile/image_smartshop1.png",
-        "src/public/images/mobile/image_smartshop2.png"
+        "/images/mobile/image_smartshop1.png",
+        "/images/mobile/image_smartshop2.png"
       ],
       "technologies": ["React Native", "Expo", "Tailwind CSS", "Appwrite Cloud"],
       "features": [
@@ -260,10 +260,10 @@
       "name": "MediCare Hospital",
       "shortDescription": "Application mobile de gestion hospitalière permettant de centraliser les informations des patients, les rendez-vous médicaux et le suivi des traitements dans un environnement sécurisé.",
       "description": "MediCare Hospital est une application mobile conçue pour accompagner les établissements de santé dans la gestion quotidienne des patients et du personnel médical. Elle facilite l'enregistrement des patients, l'organisation des rendez-vous, la consultation des dossiers médicaux et le suivi des examens ou traitements. L'application intègre un système de gestion multi-utilisateur permettant aux médecins, infirmiers et administrateurs d'accéder uniquement aux informations correspondant à leur rôle. Des notifications automatiques rappellent les consultations, les examens et les traitements afin d'améliorer la qualité du suivi médical. La sécurité des données médicales constitue une priorité grâce à une gestion rigoureuse des accès et des informations confidentielles.",
-      "image": "src/public/images/mobile/image-cover_medicare.webp",
+      "image": "/images/mobile/image-cover_medicare.webp",
       "gallery": [
-        "src/public/images/mobile/image_medicare1.png",
-        "src/public/images/mobile/image_medicare2.png"
+        "/images/mobile/image_medicare1.png",
+        "/images/mobile/image_medicare2.png"
       ],
       "technologies": ["Ionic", "Angular", "TypeScript"],
       "features": [
