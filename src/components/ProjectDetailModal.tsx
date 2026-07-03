@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { X, Github, ExternalLink, Cpu, CheckCircle, Image as ImageIcon } from "lucide-react";
+import { X, Github, ExternalLink, Cpu, CheckCircle, Image as ImageIcon, ChevronLeft, ChevronRight } from "lucide-react";
 import { Project } from "../types.ts";
 import { useLanguage } from "../i18n/LanguageContext.tsx";
 
@@ -16,7 +16,26 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
   if (!project) return null;
 
   const getProjectDetailsTranslated = (propProject: Project) => {
-    const keyMap: Record<string, { name: string; short: string; long: string; f1: string; f2: string; f3: string; f4: string; f5?: string; f6?: string; f7?: string; f8?: string }> = {
+    const keyMap: Record<
+      string,
+      {
+        name: string;
+        short: string;
+        long: string;
+        f1: string;
+        f2: string;
+        f3: string;
+        f4: string;
+        f5?: string;
+        f6?: string;
+        f7?: string;
+        f8?: string;
+        f9?: string;
+        f10?: string;
+        f11?: string;
+        f12?: string;
+      }
+    > = {
       "project-desktop-1": {
         name: "projects.p1Name",
         short: "projects.p1Short",
@@ -51,6 +70,14 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
         f2: "projects.p3F2",
         f3: "projects.p3F3",
         f4: "projects.p3F4",
+        f5: "projects.p3F5",
+        f6: "projects.p3F6",
+        f7: "projects.p3F7",
+        f8: "projects.p3F8",
+        f9: "projects.p3F9",
+        f10: "projects.p3F10",
+        f11: "projects.p3F11",
+        f12: "projects.p3F12",
       },
       "project-web-2": {
         name: "projects.p4Name",
@@ -60,6 +87,31 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
         f2: "projects.p4F2",
         f3: "projects.p4F3",
         f4: "projects.p4F4",
+        f5: "projects.p4F5",
+        f6: "projects.p4F6",
+        f7: "projects.p4F7",
+        f8: "projects.p4F8",
+        f9: "projects.p4F9",
+        f10: "projects.p4F10",
+        f11: "projects.p4F11",
+        f12: "projects.p4F12",
+      },
+      "project-web-3": {
+        name: "projects.p7Name",
+        short: "projects.p7Short",
+        long: "projects.p7Long",
+        f1: "projects.p7F1",
+        f2: "projects.p7F2",
+        f3: "projects.p7F3",
+        f4: "projects.p7F4",
+        f5: "projects.p7F5",
+        f6: "projects.p7F6",
+        f7: "projects.p7F7",
+        f8: "projects.p7F8",
+        f9: "projects.p7F9",
+        f10: "projects.p7F10",
+        f11: "projects.p7F11",
+        f12: "projects.p7F12",
       },
       "project-mobile-1": {
         name: "projects.p5Name",
@@ -69,6 +121,10 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
         f2: "projects.p5F2",
         f3: "projects.p5F3",
         f4: "projects.p5F4",
+        f5: "projects.p5F5",
+        f6: "projects.p5F6",
+        f7: "projects.p5F7",
+        f8: "projects.p5F8",
       },
       "project-mobile-2": {
         name: "projects.p6Name",
@@ -78,12 +134,20 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
         f2: "projects.p6F2",
         f3: "projects.p6F3",
         f4: "projects.p6F4",
+        f5: "projects.p6F5",
+        f6: "projects.p6F6",
+        f7: "projects.p6F7",
+        f8: "projects.p6F8",
       }
     };
 
     const keys = keyMap[propProject.id];
     if (keys) {
-      const featureKeys = [keys.f1, keys.f2, keys.f3, keys.f4, keys.f5, keys.f6, keys.f7, keys.f8].filter(Boolean) as string[];
+      const featureKeys = [
+        keys.f1, keys.f2, keys.f3, keys.f4,
+        keys.f5, keys.f6, keys.f7, keys.f8,
+        keys.f9, keys.f10, keys.f11, keys.f12
+      ].filter(Boolean) as string[];
       const features = featureKeys
         .map(k => t(k))
         .filter(val => val && !val.startsWith("projects."));
@@ -105,6 +169,22 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
   };
 
   const translatedKeys = getProjectDetailsTranslated(project);
+
+  const aspectRatioClass = project.imageAspectRatio || "aspect-video";
+  const containerClass = project.imageContainerClass || "w-full";
+  const orientation = project.orientation || "landscape";
+
+  const handleNextImage = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    if (!project.gallery || project.gallery.length <= 1) return;
+    setActiveImageIdx((prev) => (prev + 1) % project.gallery.length);
+  };
+
+  const handlePrevImage = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    if (!project.gallery || project.gallery.length <= 1) return;
+    setActiveImageIdx((prev) => (prev - 1 + project.gallery.length) % project.gallery.length);
+  };
 
   const getImageCounterText = () => {
     return t("projects.imageCounter")
@@ -150,21 +230,49 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
 
           {/* Left Side: Images & Gallery */}
           <div className="w-full md:w-1/2 p-6 flex flex-col border-b md:border-b-0 md:border-r border-zinc-805">
-            <div className="relative rounded-2xl overflow-hidden aspect-video bg-zinc-950 border border-zinc-800 group">
-              <img
-                src={project.gallery[activeImageIdx] || project.image}
-                alt={translatedKeys.name}
-                referrerPolicy="no-referrer"
-                className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-              />
-              <div className="absolute bottom-2 left-2 px-3 py-1 bg-black/75 rounded-full text-[10px] font-mono text-zinc-400 flex items-center gap-1.5 backdrop-blur-sm">
+            <div className={`relative rounded-2xl overflow-hidden bg-zinc-950 border border-zinc-800 group transition-all duration-300 ${aspectRatioClass} ${containerClass}`}>
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={activeImageIdx}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.22 }}
+                  src={project.gallery[activeImageIdx] || project.image}
+                  alt={translatedKeys.name}
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                />
+              </AnimatePresence>
+
+              {/* Navigation Arrows for Gallery */}
+              {project.gallery.length > 1 && (
+                <>
+                  <button
+                    onClick={handlePrevImage}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-zinc-950/70 border border-zinc-800 text-zinc-300 hover:text-white hover:bg-zinc-800 transition-all opacity-0 group-hover:opacity-100 cursor-pointer active:scale-90 z-10"
+                    aria-label="Previous image"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={handleNextImage}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-zinc-950/70 border border-zinc-800 text-zinc-300 hover:text-white hover:bg-zinc-800 transition-all opacity-0 group-hover:opacity-100 cursor-pointer active:scale-90 z-10"
+                    aria-label="Next image"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </>
+              )}
+
+              <div className="absolute bottom-2 left-2 px-3 py-1 bg-black/75 rounded-full text-[10px] font-mono text-zinc-400 flex items-center gap-1.5 backdrop-blur-sm z-10">
                 <ImageIcon className="w-3 h-3 text-cyan-400" />
                 {getImageCounterText()}
               </div>
             </div>
 
             {/* Thumbnail Pickers */}
-            <div className="flex gap-2 flex-wrap mt-3">
+            <div className={`flex gap-2 flex-wrap mt-3 ${orientation === "portrait" ? "justify-center" : ""}`}>
               {project.gallery.map((imgUrl, idx) => (
                 <button
                   key={idx}

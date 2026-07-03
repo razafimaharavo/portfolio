@@ -39,6 +39,10 @@ export interface Project {
   features: string[];
   github: string;
   demo: string;
+  orientation?: "portrait" | "landscape";
+  imageAspectRatio?: string;
+  imageContainerClass?: string;
+  mediaType?: string;
 }
 
 export interface Service {

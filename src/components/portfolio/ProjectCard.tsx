@@ -101,6 +101,7 @@ export function ProjectCard({
       "project-desktop-2": { name: "projects.p2Name", short: "projects.p2Short" },
       "project-web-1": { name: "projects.p3Name", short: "projects.p3Short" },
       "project-web-2": { name: "projects.p4Name", short: "projects.p4Short" },
+      "project-web-3": { name: "projects.p7Name", short: "projects.p7Short" },
       "project-mobile-1": { name: "projects.p5Name", short: "projects.p5Short" },
       "project-mobile-2": { name: "projects.p6Name", short: "projects.p6Short" },
     };
