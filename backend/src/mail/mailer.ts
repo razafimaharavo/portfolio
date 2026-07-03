@@ -98,10 +98,8 @@ export async function sendContactEmail(payload: MailPayload): Promise<{ success:
           <div style="font-size: 11px; color: #777; border-top: 1px solid #eee; padding-top: 10px;">
             <strong>Détails techniques :</strong><br/>
             IP publique : ${payload.ip}<br/>
-            Pays : ${payload.country}<br/>
-            Ville : ${payload.city || "Non identifiée"}<br/>
-            Navigateur : ${payload.browser || "Non identifié"}<br/>
-            Plateforme : ${payload.platform || "Non identifiée"}
+            Pays & Ville : ${payload.country} - ${payload.city || "Non identifiée"}<br/>
+            Navigateur & Plateforme : ${payload.browser || "Non identifié"} - ${payload.platform || "Non identifiée"}
           </div>
         </div>
       `,
