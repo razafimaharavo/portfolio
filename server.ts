@@ -5,7 +5,7 @@ import apiRouter from "./backend/src/routes/api.ts";
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  const PORT = Number(process.env.PORT) || 3000;
 
   // Configure JSON and URL body parsers for email, weather & AI requests
   app.use(express.json());
