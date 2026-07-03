@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, Variants } from "motion/react";
 import { Project } from "../../types/portfolio.types.ts";
 import { useLanguage } from "../../i18n/LanguageContext.tsx";
 
@@ -69,7 +69,7 @@ export function ProjectCard({
   if (!activeProject) return null;
 
   // Spring animation variants for direction-aware slide + fade
-  const slideVariants = {
+  const slideVariants: Variants = {
     initial: (dir: number) => ({
       opacity: 0,
       x: dir > 0 ? 35 : -35,
