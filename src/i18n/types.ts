@@ -229,6 +229,12 @@ export interface TranslationDictionary {
     errorLabel: string;
     testEnv: string;
     openInbox: string;
+    emailConfirmTitle: string;
+    emailConfirmDesc: string;
+    emailConfirmLabel: string;
+    emailConfirmPlaceholder: string;
+    emailConfirmCancel: string;
+    emailConfirmConfirm: string;
   };
   footer: {
     copy: string;
