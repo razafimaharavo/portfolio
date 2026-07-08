@@ -697,7 +697,7 @@ export default function RazmaAssistant({
               </div>
 
               {/* Wave Animation Area - dynamically driven by talking status */}
-              <div className="bg-zinc-50 dark:bg-zinc-950 py-3 border-b border-zinc-200 dark:border-zinc-800 transition-colors duration-500">
+              <div className="bg-zinc-50 dark:bg-zinc-950 py-6 border-b border-zinc-200 dark:border-zinc-800 transition-colors duration-500">
                 <LottiePlayer animationPath="assistant" isIATalking={isLoading || isListening || isAudioPlayingRef.current} className="h-16" />
                 <div className="text-center text-[10px] font-mono text-cyan-600 dark:text-cyan-400/80 uppercase tracking-widest mt-1">
                   {speechError ? (

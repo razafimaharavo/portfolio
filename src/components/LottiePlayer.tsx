@@ -163,7 +163,7 @@ export default function LottiePlayer({
   if (animationPath === "assistant") {
     const barsCount = 6;
     return (
-      <div id="lottie-assistant" className={`relative flex flex-col items-center justify-center w-full h-full py-4 ${className}`}>
+      <div id="lottie-assistant" className={`relative flex flex-col items-center justify-center w-full h-full ${className}`}>
         {/* Dynamic Wave Visualizer */}
         <div className="flex items-end justify-center gap-1.5 h-16 w-36">
           {Array.from({ length: barsCount }).map((_, idx) => {
