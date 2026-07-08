@@ -38,7 +38,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
               transition={{ duration: 0.5, ease: "easeInOut" }}
               className="w-full flex-1"
             >
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-500/10 dark:bg-indigo-500/15 border border-indigo-400/30 rounded-full text-indigo-650 dark:text-indigo-400 text-xs font-mono font-bold tracking-wide mb-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-500/10 dark:bg-blue-500/15 border border-blue-400/30 rounded-full text-blue-650 dark:text-blue-400 text-xs font-mono font-bold tracking-wide mb-6">
                 <Sparkles className="w-3.5 h-3.5 animate-spin-slow animate-pulse" />
                 {t(`hero.badge${variantIndex + 1}`)}
               </div>
@@ -46,7 +46,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-sans tracking-tight text-zinc-900 dark:text-white leading-[1.15]">
                 {t(`hero.welcome${variantIndex + 1}`)}
               </h1>
-              <p className="text-lg font-mono text-indigo-650 dark:text-indigo-400 font-bold mt-2 text-left uppercase tracking-wider text-xl leading-snug">
+              <p className="text-lg font-mono text-blue-650 dark:text-blue-400 font-bold mt-2 text-left uppercase tracking-wider text-xl leading-snug">
                 {t(`hero.title${variantIndex + 1}`)}
               </p>
 
@@ -61,7 +61,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
         <div className="flex flex-wrap gap-4 mt-8">
           <a
             href={portfolio.profile.cvUrl}
-            className="flex items-center gap-2 px-5 py-3 rounded-xl bg-zinc-950 dark:bg-white text-white dark:text-black hover:bg-zinc-800 dark:hover:bg-zinc-100 font-bold text-xs transition-all font-sans active:scale-95 shadow-md shadow-indigo-500/10"
+            className="flex items-center gap-2 px-5 py-3 rounded-xl bg-zinc-950 dark:bg-white text-white dark:text-black hover:bg-zinc-800 dark:hover:bg-zinc-100 font-bold text-xs transition-all font-sans active:scale-95 shadow-md shadow-blue-500/10"
           >
             {t("hero.btnCV")}
             <ArrowUpRight className="w-4 h-4" />
@@ -74,7 +74,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
           >
             {t("hero.btnContact")}
           </a>
-          <span className="w-2 h-2 bg-indigo-500 rounded-full animate-bounce"></span>
+          <span className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></span>
         </div>
       </motion.div>
 
@@ -85,10 +85,6 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
         transition={{ duration: 0.6, delay: 0.15 }}
         className="md:col-span-5 flex items-center justify-center p-6 relative overflow-hidden h-full min-h-[320px]"
       >
-        {/* <div className="absolute top-4 left-4 flex items-center gap-2">
-          <span className="w-2.5 h-2.5 bg-indigo-500 rounded-full animate-bounce"></span>
-          <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 dark:text-zinc-500">{t("hero.liveApp")}</span>
-        </div> */}
         <LottiePlayer animationPath="introduction" className="h-72 w-full" />
       </motion.div>
     </section>

@@ -52,9 +52,9 @@ export default function LottiePlayer({
             transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
           />
 
-          {/* PHP Logo (formerly green/emerald square at bottom right) */}
+          {/* PHP Logo (formerly blue/blue square at bottom right) */}
           <motion.div
-            className="absolute w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500 flex items-center justify-center text-[10px] font-black text-emerald-500 shadow-md shadow-emerald-500/10"
+            className="absolute w-9 h-9 rounded-lg bg-blue-500/10 border border-blue-400 flex items-center justify-center text-[10px] font-black  shadow-md shadow-blue-500/10"
             style={{ bottom: 30, right: 30 }}
             animate={isAnimating ? { y: [0, 12, 0], scale: [1, 1.1, 1], rotate: -360 } : {}}
             transition={{
@@ -63,12 +63,12 @@ export default function LottiePlayer({
               rotate: { repeat: Infinity, duration: 40, ease: "linear" }
             }}
           >
-            PHP
+            <img src="/images/logo/php.png" alt="PHP Logo" className="w-8 h-5" />
           </motion.div>
 
           {/* CSS Logo (formerly orange/amber square at top right) */}
           <motion.div
-            className="absolute w-9 h-9 rounded-lg bg-blue-500/10 border border-blue-500 flex items-center justify-center text-[10px] font-black text-blue-500 shadow-md shadow-blue-500/10"
+            className="absolute w-9 h-9 rounded-lg bg-blue-500/10 border border-blue-500 flex items-center justify-center text-[10px] font-black  shadow-md shadow-blue-500/10"
             style={{ top: 80, right: 10 }}
             animate={isAnimating ? { y: [0, -10, 0], scale: [1, 1.05, 1], rotate: -360 } : {}}
             transition={{
@@ -77,12 +77,12 @@ export default function LottiePlayer({
               rotate: { repeat: Infinity, duration: 40, ease: "linear" }
             }}
           >
-            CSS
+            <img src="/images/logo/css.png" alt="CSS Logo" className="w-8 h-8" />
           </motion.div>
 
           {/* JS Logo (newly added on the bottom left for perfect visual balance) */}
           <motion.div
-            className="absolute w-9 h-9 rounded-lg bg-amber-500/10 border border-amber-500 flex items-center justify-center text-[10px] font-black text-amber-500 shadow-md shadow-amber-500/10"
+            className="absolute w-9 h-9 rounded-lg bg-amber-500/10 border border-yellow-300 flex items-center justify-center text-[10px] font-black shadow-md shadow-amber-500/10"
             style={{ bottom: 30, left: 30 }}
             animate={isAnimating ? { y: [0, -12, 0], scale: [1, 1.1, 1], rotate: -360 } : {}}
             transition={{
@@ -91,7 +91,7 @@ export default function LottiePlayer({
               rotate: { repeat: Infinity, duration: 40, ease: "linear" }
             }}
           >
-            JS
+            <img src="/images/logo/js.png" alt="JS Logo" className="w-6 h-6" />
           </motion.div>
 
           {/* Core Hub */}

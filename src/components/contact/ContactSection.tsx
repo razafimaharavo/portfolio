@@ -158,10 +158,10 @@ export function ContactSection() {
           <div className="md:col-span-7 flex flex-col justify-between">
             <div>
               <div className="mb-6">
-                <span className="text-[10px] font-mono font-bold tracking-widest text-[#6366f1] uppercase">
+                <span className="text-[10px] font-mono font-bold tracking-widest text-blue-600 uppercase">
                   {t("contact.badge")}
                 </span>
-                <h2 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white mt-1">
+                <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white mt-1">
                   {t("contact.title")}
                 </h2>
                 <p className="text-xs font-mono text-zinc-500 dark:text-zinc-400 mt-1 leading-relaxed">
