@@ -2,6 +2,14 @@
 
 @variant dark (&:where(.dark, .dark *));
 
+:root {
+  --autofill-text: #18181b;       /* zinc-900 */
+}
+
+.dark {
+  --autofill-text: #fafafa;       /* zinc-50 */
+}
+
 /* Centralized Glassmorphism Components for Section Cards */
 .portfolio-glass-card {
   @apply border border-zinc-200 dark:border-zinc-800 rounded-3xl bg-white/50 dark:bg-zinc-900/40 backdrop-blur-md shadow-sm transition-all duration-300;
@@ -35,4 +43,16 @@
 .group:focus-within .service-card-path-2 {
   stroke-dashoffset: 0;
   opacity: 1;
+}
+
+/* Cross-browser Input Autofill Custom Style Preservation */
+:is(input, textarea, select):-webkit-autofill,
+:is(input, textarea, select):-webkit-autofill:hover,
+:is(input, textarea, select):-webkit-autofill:focus,
+:is(input, textarea, select):-webkit-autofill:active {
+  -webkit-text-fill-color: var(--autofill-text) !important;
+  caret-color: var(--autofill-text);
+  transition: background-color 999999s ease-in-out 0s;
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+  box-shadow: 0 0 0 1000px transparent inset !important;
 }
