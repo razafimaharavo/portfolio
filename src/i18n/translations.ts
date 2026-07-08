@@ -294,7 +294,7 @@ export const translations: Record<string, TranslationDictionary> = {
     },
     footer: {
       copy: "Tous droits réservés. Conçu pour inspirer l'innovation.",
-      tech: "Propulsé par React, Three.js & Gemini IA",
+      tech: "Propulsé par React & Node.js, Three.js & Gemini IA",
     },
     razma: {
       welcome: "Bonjour ! Je suis Razma IA, l'assistante virtuelle de Marion. Je connais parfaitement son parcours, ses projets et ses compétences. Posez-moi une question ou activez le micro ci-dessous pour discuter en temps réel ! Vous pouvez par exemple me demander de vous présenter ses diplômes ou de scroller vers ses applications mobiles.",
@@ -613,7 +613,7 @@ export const translations: Record<string, TranslationDictionary> = {
     },
     footer: {
       copy: "All rights reserved. Styled to spark digital innovation.",
-      tech: "Powered by React, Three.js & Gemini AI",
+      tech: "Powered by React & Node.js, Three.js & Gemini AI",
     },
     razma: {
       welcome: "Hello! I am Razma AI, Marion's virtual agent. I know everything about his career, projects, and tech skills. Ask me anything or toggle the speech button below to discuss in real-time! You can ask me to outline his diplomas or auto-scroll to his mobile apps.",
@@ -932,7 +932,7 @@ export const translations: Record<string, TranslationDictionary> = {
     },
     footer: {
       copy: "Zo rehetra voatana. Natao hanentanana ny famoronana.",
-      tech: "Novolavolaina tamin'ny React, Three.js & Gemini IA",
+      tech: "Novolavolaina tamin'ny React & Node.js, Three.js & Gemini IA",
     },
     razma: {
       welcome: "Salama ! Izaho no Razma IA, mpanampy virtoaly an'i Marion. Fantatro tsara ny fandalinany, ny asany, ary ny fahaizany teo amin'ny sehatry ny teknolojia. Manontania ahy amin'ny teny gasy na tsindrio ny sary micro mba hiresahana mivantana ! Azonao atao koa ny mangataka ahy mba hanoro ny diplaomany.",

@@ -29,7 +29,7 @@ export function AnimatedInput({
       
       <div className="relative flex items-center bg-zinc-50/5 dark:bg-zinc-950/20 backdrop-blur-[2px] rounded-t-xl overflow-hidden transition-all duration-300">
         {/* Left Aligned Icon */}
-        <div className="absolute left-3 text-zinc-400 group-hover:text-cyan-500 group-focus-within:text-indigo-500 transition-colors duration-300">
+        <div className="absolute left-3 text-zinc-400 group-hover:text-indigo-500 group-focus-within:text-blue-500 transition-colors duration-300">
           <Icon className="w-4 h-4" />
         </div>
 
@@ -43,11 +43,11 @@ export function AnimatedInput({
         />
 
         {/* Dynamic Glow and Border Bottom animation (expands left to right) */}
-        <span className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-cyan-500 via-indigo-500 to-indigo-600 origin-left scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100 group-focus-within:scale-x-100 z-20" />
+        <span className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-indigo-500 via-blue-500 to-blue-600 origin-left scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100 group-focus-within:scale-x-100 z-20" />
       </div>
 
       {/* Focus Glow Background */}
-      <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-cyan-500/3 to-indigo-500/3 opacity-0 group-focus-within:opacity-100 transition-all duration-500 pointer-events-none -z-10 blur-md" />
+      <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-indigo-500/3 to-blue-500/3 opacity-0 group-focus-within:opacity-100 transition-all duration-500 pointer-events-none -z-10 blur-md" />
 
       {/* Structured Validation Error */}
       {error && (

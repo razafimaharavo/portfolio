@@ -69,7 +69,7 @@ export function ContactForm({
 
       <button
         type="submit"
-        className="w-full py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs font-mono transition-all uppercase tracking-wider select-none active:scale-98 cursor-pointer"
+        className="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs font-mono transition-all uppercase tracking-wider select-none active:scale-98 cursor-pointer"
       >
         {t("contact.send")}
       </button>
