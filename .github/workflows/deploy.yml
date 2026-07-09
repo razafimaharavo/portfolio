@@ -47,7 +47,7 @@ jobs:
 
           local-dir: ./
 
-          server-dir: apps/razma-portfolio/
+          server-dir: razma-portfolio/
 
           dangerous-clean-slate: false
 
