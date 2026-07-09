@@ -18,6 +18,10 @@ import { useTheme } from "./hooks/useTheme.ts";
 import { useWeather } from "./hooks/useWeather.ts";
 import { useActiveSection } from "./hooks/useActiveSection.ts";
 import { useRandomProjects } from "./hooks/useRandomProjects.ts";
+import { usePageLoading } from "./hooks/usePageLoading.ts";
+
+import { Preloader } from "./components/common/Preloader.tsx";
+import { motion } from "motion/react";
 
 import { handleScrollToSection } from "./utils/scroll.ts";
 import DocumentationPage from "./pages/DocumentationPage.tsx";
@@ -27,6 +31,9 @@ export default function App() {
   if (isDocsPage) {
     return <DocumentationPage />;
   }
+
+  // Preloader Management
+  const { progress, isLoading, isExiting } = usePageLoading(1200);
 
   // Theme Management
   const { theme, setTheme } = useTheme();
@@ -136,10 +143,15 @@ export default function App() {
   };
 
   return (
-    <div className={`min-h-screen ${theme} bg-zinc-50/50 dark:bg-[#050505]/40 text-zinc-800 dark:text-zinc-100 transition-all duration-500 ease-in-out flex flex-col font-sans ${isAssistantOpen ? "lg:pr-[384px]" : "lg:pr-0"}`}>
-      
-      {/* Three.js 3D Animated Background */}
-      <InteractiveNetworkBackground theme={theme} />
+    <>
+      {isLoading && (
+        <Preloader progress={progress} isExiting={isExiting} />
+      )}
+
+      <div className={`min-h-screen ${theme} bg-zinc-50/50 dark:bg-[#050505]/40 text-zinc-800 dark:text-zinc-100 transition-all duration-500 ease-in-out flex flex-col font-sans ${isAssistantOpen ? "lg:pr-[384px]" : "lg:pr-0"}`}>
+        
+        {/* Three.js 3D Animated Background */}
+        <InteractiveNetworkBackground theme={theme} />
 
       {/* Header */}
       <Header
@@ -202,6 +214,7 @@ export default function App() {
         onRequestWeather={requestWeather}
       />
 
-    </div>
+      </div>
+    </>
   );
 }

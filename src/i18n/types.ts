@@ -262,5 +262,6 @@ export interface TranslationDictionary {
     soundOff: string;
     locDisable: string;
     locDetect: string;
+    initializing: string;
   };
 }

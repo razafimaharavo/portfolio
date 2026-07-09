@@ -324,6 +324,7 @@ export const translations: Record<string, TranslationDictionary> = {
       soundOff: "Activer la voix",
       locDisable: "Localisation désactivée",
       locDetect: "Détecter météo",
+      initializing: "Initialisation de Razma IA...",
     },
   },
   en: {
@@ -649,6 +650,7 @@ export const translations: Record<string, TranslationDictionary> = {
       soundOff: "Enable voice",
       locDisable: "Location deactivated",
       locDetect: "Detect weather",
+      initializing: "Initializing Razma AI...",
     },
   },
   mg: {
@@ -974,6 +976,7 @@ export const translations: Record<string, TranslationDictionary> = {
       soundOff: "Andefa feo",
       locDisable: "Tsy mandeha ny gps",
       locDetect: "Hijery toetr'andro",
+      initializing: "Manomboka ny Razma IA...",
     },
   },
 };
