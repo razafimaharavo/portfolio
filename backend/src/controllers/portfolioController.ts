@@ -164,6 +164,7 @@ export async function handleContactForm(req: Request, res: Response): Promise<vo
 }
 
 export async function handleWeatherLookup(req: Request, res: Response): Promise<void> {
+  console.log("=== WEATHER ROUTE CALLED ===");
   try {
     const { latitude, longitude } = req.body;
 
