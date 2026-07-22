@@ -3,16 +3,28 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { motion } from "motion/react";
-import { CheckCircle, Mail, MapPin, Briefcase, Award, Terminal } from "lucide-react";
+import {
+  CheckCircle,
+  Mail,
+  MapPin,
+  Briefcase,
+  Award,
+  Terminal,
+} from "lucide-react";
 import { ContactForm, ContactFormData } from "./ContactForm.tsx";
 import { EmailConfirmationModal } from "./EmailConfirmationModal.tsx";
 import { useLanguage } from "../../i18n/LanguageContext.tsx";
 
 export function ContactSection() {
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
-  const [pendingFormData, setPendingFormData] = useState<ContactFormData | null>(null);
+  const [pendingFormData, setPendingFormData] =
+    useState<ContactFormData | null>(null);
   const [isSending, setIsSending] = useState(false);
-  const [mailResult, setMailResult] = useState<{ success: boolean; previewUrl?: string; message?: string } | null>(null);
+  const [mailResult, setMailResult] = useState<{
+    success: boolean;
+    previewUrl?: string;
+    message?: string;
+  } | null>(null);
   const { t, language } = useLanguage();
 
   const contactSchema = z.object({
@@ -52,18 +64,28 @@ export function ContactSection() {
     setMailResult(null);
 
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: pendingFormData.name,
-          senderEmail: pendingFormData.senderEmail,
-          subject: pendingFormData.subject,
-          message: pendingFormData.message,
-        }),
+      const body = new URLSearchParams({
+        name: pendingFormData.name,
+        senderEmail: pendingFormData.senderEmail,
+        subject: pendingFormData.subject,
+        message: pendingFormData.message,
       });
 
-      const data = await response.json();
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body,
+      });
+
+      const contentType = response.headers.get("content-type") || "";
+      const data = contentType.includes("application/json")
+        ? await response.json()
+        : null;
+
+      if (!data) {
+        throw new Error(t("contact.errorMessage"));
+      }
+
       if (response.ok && data.success) {
         setMailResult({
           success: true,
@@ -89,10 +111,12 @@ export function ContactSection() {
   };
 
   return (
-    <section id="section-contact" className="py-20 bg-zinc-50/50 dark:bg-zinc-900/5 max-w-5xl mx-auto px-4 w-full">
+    <section
+      id="section-contact"
+      className="py-20 bg-zinc-50/50 dark:bg-zinc-900/5 max-w-5xl mx-auto px-4 w-full"
+    >
       <div className="portfolio-glass-card p-6 md:p-10">
         <div className="grid grid-cols-1  items-stretch">
-          
           {/* Left Column: Creative Profile Information Card */}
           {/* <div className="md:col-span-5 flex flex-col justify-between border-b md:border-b-0 md:border-r border-zinc-200/60 dark:border-zinc-800/60 pb-8 md:pb-0 md:pr-8 text-left">
             <div>
@@ -181,7 +205,11 @@ export function ContactSection() {
                 >
                   <div className="flex items-center gap-2 font-bold mb-1">
                     <CheckCircle className="w-4 h-4 shrink-0" />
-                    <span>{mailResult.success ? t("contact.successLabel") : t("contact.errorLabel")}</span>
+                    <span>
+                      {mailResult.success
+                        ? t("contact.successLabel")
+                        : t("contact.errorLabel")}
+                    </span>
                   </div>
                   <p className="font-sans text-left">{mailResult.message}</p>
                   {mailResult.previewUrl && (
