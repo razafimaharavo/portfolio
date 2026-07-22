@@ -13,7 +13,9 @@ export interface MailPayload {
   platform?: string;
 }
 
-export async function sendContactEmail(payload: MailPayload): Promise<{ success: boolean; previewUrl?: string; error?: string }> {
+export async function sendContactEmail(
+  payload: MailPayload,
+): Promise<{ success: boolean; previewUrl?: string; error?: string }> {
   try {
     const isConfigured = config.emailUser && config.emailPassword;
 
@@ -44,6 +46,15 @@ export async function sendContactEmail(payload: MailPayload): Promise<{ success:
       });
     }
 
+    function sanitizeMessage(msg: string): string {
+      return msg
+        .split("\n")
+        .map((line) => line.trim()) // enlève les espaces en début/fin de CHAQUE ligne
+        .join("\n")
+        .replace(/\n{3,}/g, "\n\n") // limite les lignes vides consécutives à 1 max
+        .trim(); // enlève les retours à la ligne vides en tout début/fin
+    }
+
     const fromAddress = isConfigured ? config.emailUser : payload.senderEmail;
 
     const mailOptions = {
@@ -58,7 +69,7 @@ export async function sendContactEmail(payload: MailPayload): Promise<{ success:
         Email: ${payload.senderEmail}
         Sujet: ${payload.subject}
         Message:
-        ${payload.message}
+        ${sanitizeMessage(payload.message)}
 
         Détails Techniques:
         IP publique : ${payload.ip}
@@ -69,39 +80,328 @@ export async function sendContactEmail(payload: MailPayload): Promise<{ success:
         Date : ${new Date().toLocaleString("fr-FR")}
       `,
       html: `
-        <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 8px; padding: 20px; background-color: #f9f9f9;">
-          <h2 style="color: #4f46e5; border-bottom: 2px solid #4f46e5; padding-bottom: 8px; margin-top: 0;">Nouveau Message Portfolio</h2>
-          <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
-            <tr>
-              <td style="padding: 8px 0; font-weight: bold; width: 150px;">Nom:</td>
-              <td style="padding: 8px 0;">${payload.name}</td>
-            </tr>
-            <tr>
-              <td style="padding: 8px 0; font-weight: bold;">Email Expéditeur:</td>
-              <td style="padding: 8px 0;"><a href="mailto:${payload.senderEmail}" style="color: #4f46e5;">${payload.senderEmail}</a></td>
-            </tr>
-            <tr>
-              <td style="padding: 8px 0; font-weight: bold;">Sujet:</td>
-              <td style="padding: 8px 0;">${payload.subject}</td>
-            </tr>
-            <tr>
-              <td style="padding: 8px 0; font-weight: bold;">Date:</td>
-              <td style="padding: 8px 0;">${new Date().toLocaleString("fr-FR")}</td>
-            </tr>
-          </table>
-          
-          <div style="background-color: #fff; border-left: 4px solid #4f46e5; padding: 15px; border-radius: 4px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-            <h4 style="margin: 0 0 10px 0; color: #111;">Message:</h4>
-            <p style="margin: 0; white-space: pre-wrap;">${payload.message}</p>
-          </div>
+        <table
+          role="presentation"
+          cellpadding="0"
+          cellspacing="0"
+          border="0"
+          width="100%"
+          style="
+            background:#f3f4f6;
+            padding:30px 0;
+            font-family:Arial,Helvetica,sans-serif;
+          "
+        >
+          <tr>
+            <td align="center">
 
-          <div style="font-size: 11px; color: #777; border-top: 1px solid #eee; padding-top: 10px;">
-            <strong>Détails techniques :</strong><br/>
-            IP publique : ${payload.ip}<br/>
-            Pays & Ville : ${payload.country} - ${payload.city || "Non identifiée"}<br/>
-            Navigateur & Plateforme : ${payload.browser || "Non identifié"} - ${payload.platform || "Non identifiée"}
-          </div>
-        </div>
+              <table
+                role="presentation"
+                cellpadding="0"
+                cellspacing="0"
+                border="0"
+                width="650"
+                style="
+                  width:650px;
+                  max-width:650px;
+                  background:#f8fafc;
+                  border:1px solid #e5e7eb;
+                  border-radius:14px;
+                "
+              >
+
+                <!-- ================= HEADER ================= -->
+
+                <tr>
+                  <td
+                    bgcolor="#1d4ed8"
+                    style="
+                      padding:20px 24px;
+                      border-radius:14px 14px 0 0;
+                    "
+                  >
+
+                    <table
+                      role="presentation"
+                      width="100%"
+                      cellpadding="0"
+                      cellspacing="0"
+                      border="0"
+                    >
+                      <tr>
+
+                        <!-- Logo + Nom -->
+
+                        <td valign="middle">
+
+                          <table
+                            role="presentation"
+                            cellpadding="0"
+                            cellspacing="0"
+                            border="0"
+                          >
+                            <tr>
+
+                              <td valign="middle">
+                                <img
+                                  src="https://brunelcreative.com/images/logo/avatar.png"
+                                  width="42"
+                                  height="42"
+                                  alt="Razma"
+                                  style="
+                                    display:block;
+                                    background:#ffffff;
+                                    border-radius:10px;
+                                  "
+                                />
+                              </td>
+
+                              <td width="12"></td>
+
+                              <td valign="middle">
+
+                                <div
+                                  style="
+                                    color:#ffffff;
+                                    font-size:28px;
+                                    font-weight:bold;
+                                    line-height:1;
+                                  "
+                                >
+                                  Razma
+                                </div>
+
+                                <div
+                                  style="
+                                    color:#dbeafe;
+                                    font-size:12px;
+                                    letter-spacing:1px;
+                                  "
+                                >
+                                  PORTFOLIO
+                                </div>
+
+                              </td>
+
+                            </tr>
+                          </table>
+
+                        </td>
+
+                        <!-- Métier -->
+
+                        <td
+                          align="right"
+                          valign="middle"
+                          style="
+                            color:#ffffff;
+                            font-size:15px;
+                          "
+                        >
+                          Développeur Full Stack
+                        </td>
+
+                      </tr>
+                    </table>
+
+                  </td>
+                </tr>
+
+                <!-- ================= CONTENU ================= -->
+
+                <tr>
+                  <td style="padding:28px;">
+
+                    <!-- Informations -->
+
+                    <table
+                      role="presentation"
+                      width="100%"
+                      cellpadding="0"
+                      cellspacing="0"
+                      border="0"
+                      style="font-size:15px;color:#374151;"
+                    >
+
+                      <tr>
+                        <td width="150" style="padding:10px 0;font-weight:bold;">
+                          Nom :
+                        </td>
+
+                        <td style="padding:10px 0;">
+                          ${payload.name}
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td style="padding:10px 0;font-weight:bold;">
+                          Email Expéditeur :
+                        </td>
+
+                        <td style="padding:10px 0;">
+                          <a
+                            href="mailto:${payload.senderEmail}"
+                            style="
+                              color:#1d4ed8;
+                              text-decoration:none;
+                            "
+                          >
+                            ${payload.senderEmail}
+                          </a>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td style="padding:10px 0;font-weight:bold;">
+                          Sujet :
+                        </td>
+
+                        <td style="padding:10px 0;">
+                          ${payload.subject}
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td style="padding:10px 0;font-weight:bold;">
+                          Date :
+                        </td>
+
+                        <td style="padding:10px 0;">
+                          ${new Date().toLocaleString("fr-FR")}
+                        </td>
+                      </tr>
+
+                    </table>
+
+                    <!-- espace -->
+
+                    <table
+                      role="presentation"
+                      width="100%"
+                      cellpadding="0"
+                      cellspacing="0"
+                      border="0"
+                    >
+                      <tr>
+                        <td height="20"></td>
+                      </tr>
+                    </table>
+
+                    <!-- MESSAGE -->
+
+                    <table
+                      role="presentation"
+                      cellpadding="0"
+                      cellspacing="0"
+                      border="0"
+                      width="100%"
+                      style="margin:0 0 25px 0;"
+                    >
+                      <tr>
+                        <td
+                          style="
+                            background:#ffffff;
+                            border-left:4px solid #2563eb;
+                            border-radius:8px;
+                            padding:20px;
+                          "
+                        >
+                          <table
+                            role="presentation"
+                            cellpadding="0"
+                            cellspacing="0"
+                            border="0"
+                            width="100%"
+                          >
+                            <tr>
+                              <td
+                                style="
+                                  font-size:18px;
+                                  font-weight:bold;
+                                  color:#111827;
+                                  padding-bottom:18px;
+                                "
+                              >
+                                Message :
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td style="padding:0;" align="left" valign="top">
+                                <div style="text-align:left;white-space:pre-wrap;word-break:break-word;line-height:28px;font-size:15px;color:#374151;">${sanitizeMessage(payload.message)}</div>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <!-- espace -->
+
+                    <table
+                      role="presentation"
+                      width="100%"
+                      cellpadding="0"
+                      cellspacing="0"
+                      border="0"
+                    >
+                      <tr>
+                        <td height="24"></td>
+                      </tr>
+                    </table>
+
+                    <!-- DETAILS -->
+
+                    <table
+                      role="presentation"
+                      width="100%"
+                      cellpadding="0"
+                      cellspacing="0"
+                      border="0"
+                      style="
+                        border-top:1px solid #e5e7eb;
+                        color:#6b7280;
+                        font-size:12px;
+                      "
+                    >
+
+                      <tr>
+                        <td style="padding-top:18px;">
+
+                          <strong style="color:#374151;">
+                            Détails techniques
+                          </strong>
+
+                          <br><br>
+
+                          <strong>IP publique :</strong>
+                          ${payload.ip}
+
+                          <br>
+
+                          <strong>Pays & Ville :</strong>
+                          ${payload.country} -
+                          ${payload.city || "Non identifiée"}
+
+                          <br>
+
+                          <strong>Navigateur & Plateforme :</strong>
+                          ${payload.browser || "Non identifié"} -
+                          ${payload.platform || "Non identifiée"}
+
+                        </td>
+                      </tr>
+
+                    </table>
+
+                  </td>
+                </tr>
+
+              </table>
+
+            </td>
+          </tr>
+        </table>
       `,
     };
 
@@ -110,7 +410,9 @@ export async function sendContactEmail(payload: MailPayload): Promise<{ success:
 
     if (!isConfigured) {
       previewUrl = nodemailer.getTestMessageUrl(info) || undefined;
-      console.log(`[Email Mock] Message envoyé ! URL de prévisualisation : ${previewUrl}`);
+      console.log(
+        `[Email Mock] Message envoyé ! URL de prévisualisation : ${previewUrl}`,
+      );
     }
 
     return { success: true, previewUrl };

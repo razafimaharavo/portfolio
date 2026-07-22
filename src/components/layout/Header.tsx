@@ -11,7 +11,10 @@ interface HeaderProps {
   weatherLoading: boolean;
   weatherError: string | null;
   activeSection: string;
-  onScrollToSection: (e: React.MouseEvent<HTMLAnchorElement>, id: string) => void;
+  onScrollToSection: (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    id: string,
+  ) => void;
 }
 
 export function Header({
@@ -28,13 +31,19 @@ export function Header({
   const [isScrolled, setIsScrolled] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const languages: { code: LanguageType; name: string; flag: string; short: string }[] = [
+  const languages: {
+    code: LanguageType;
+    name: string;
+    flag: string;
+    short: string;
+  }[] = [
     { code: "fr", name: "Français", flag: "🇫🇷", short: "FR" },
     { code: "en", name: "English", flag: "🇺🇸", short: "EN" },
     { code: "mg", name: "Malagasy", flag: "🇲🇬", short: "MG" },
   ];
 
-  const currentLangObj = languages.find((l) => l.code === language) || languages[0];
+  const currentLangObj =
+    languages.find((l) => l.code === language) || languages[0];
 
   // Detect window scroll
   useEffect(() => {
@@ -55,7 +64,10 @@ export function Header({
   // Close dropdown on click outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsLangOpen(false);
       }
     }
@@ -66,15 +78,26 @@ export function Header({
   }, []);
 
   return (
-    <header className={`sticky top-0 z-40 transition-all duration-300 ${
-      isScrolled
-        ? "bg-white/85 dark:bg-[#050505]/85 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800 shadow-sm"
-        : "bg-transparent backdrop-blur-none border-b border-transparent"
-    }`}>
+    <header
+      className={`sticky top-0 z-40 transition-all duration-300 ${
+        isScrolled
+          ? "bg-white/85 dark:bg-[#050505]/85 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800 shadow-sm"
+          : "bg-transparent backdrop-blur-none border-b border-transparent"
+      }`}
+    >
       <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white font-bold leading-none select-none">
-            <img src={portfolio.profile.avatar} alt={portfolio.profile.name} className="w-full h-full object-cover rounded-2xl" />
+          <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold leading-none select-none">
+            {/* <img src={portfolio.profile.avatar} alt={portfolio.profile.name} className="w-full h-full object-cover rounded-2xl" /> */}
+            <img
+              src={
+                theme === "dark"
+                  ? portfolio.profile.avatar2
+                  : portfolio.profile.avatar
+              }
+              alt={portfolio.profile.name}
+              className="w-full h-full object-cover rounded-2xl"
+            />
           </div>
           <div>
             <span className="text-sm font-bold tracking-tight text-zinc-900 dark:text-white">
@@ -102,7 +125,8 @@ export function Header({
             href="#about-profile"
             onClick={(e) => onScrollToSection(e, "about-profile")}
             className={`transition-all duration-300 ${
-              activeSection === "about-profile" || activeSection === "section-competences"
+              activeSection === "about-profile" ||
+              activeSection === "section-competences"
                 ? "text-blue-600 dark:text-blue-400 font-bold scale-105"
                 : "text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
             }`}
@@ -151,9 +175,11 @@ export function Header({
               onClick={() => setIsLangOpen(!isLangOpen)}
               className="flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-700 dark:text-zinc-350 hover:bg-zinc-200/60 dark:hover:bg-zinc-800/80 transition-all cursor-pointer font-mono font-bold"
             >
-              <Globe className="w-3.5 h-3.5 text-indigo-500" />
+              <Globe className="w-3.5 h-3.5 text-blue-500" />
               <span>{currentLangObj.flag}</span>
-              <span className="hidden sm:inline text-[11px] font-bold">{currentLangObj.short}</span>
+              <span className="hidden sm:inline text-[11px] font-bold">
+                {currentLangObj.short}
+              </span>
               <ChevronDown className="w-3 h-3 opacity-60 ml-0.5" />
             </button>
 
@@ -168,7 +194,7 @@ export function Header({
                     }}
                     className={`w-full text-left px-3 py-2 text-xs flex items-center justify-between transition-colors ${
                       language === lang.code
-                        ? "bg-indigo-50/70 dark:bg-indigo-950/40 text-indigo-650 dark:text-indigo-400 font-semibold"
+                        ? "bg-blue-50/70 dark:bg-blue-950/40 text-blue-650 dark:text-blue-400 font-semibold"
                         : "text-zinc-700 dark:text-zinc-305 hover:bg-zinc-50 dark:hover:bg-zinc-900/65"
                     }`}
                   >
@@ -177,7 +203,7 @@ export function Header({
                       <span>{lang.name}</span>
                     </span>
                     {language === lang.code && (
-                      <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
                     )}
                   </button>
                 ))}
@@ -214,14 +240,17 @@ export function Header({
             {weatherLoading ? (
               <>
                 <Loader2 className="w-3.5 h-3.5 animate-spin text-cyan-500" />
-                <span className="animate-pulse text-zinc-500 dark:text-zinc-400">{t("header.weatherLoading")}</span>
+                <span className="animate-pulse text-zinc-500 dark:text-zinc-400">
+                  {t("header.weatherLoading")}
+                </span>
               </>
             ) : weather ? (
               <>
                 <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
                 <span className="flex items-center gap-1.5 text-zinc-700 dark:text-zinc-300">
                   <CloudSun className="w-3.5 h-3.5 text-amber-500 shrink-0" />
-                  {Math.round(weather.temperature)}°C • {weather.city}, {weather.country}
+                  {Math.round(weather.temperature)}°C • {weather.city},{" "}
+                  {weather.country}
                 </span>
               </>
             ) : (

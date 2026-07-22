@@ -7,30 +7,33 @@ import fs from "fs/promises";
 import path from "path";
 
 const titleMap: Record<string, string> = {
-  "README": "README",
-  "Architecture": "Architecture",
-  "Frontend": "Frontend",
-  "Backend": "Backend",
-  "RazmaIA": "Razma IA",
-  "VoiceAssistant": "Voice Assistant",
-  "EmailSystem": "Email System",
-  "Localization": "Localization",
-  "Translations": "Translations",
-  "Weather": "Weather",
-  "Geolocation": "Geolocation",
-  "ThreeJS": "ThreeJS",
-  "Deployment": "Deployment",
-  "EnvironmentVariables": "Environment Variables"
+  README: "README",
+  Architecture: "Architecture",
+  Frontend: "Frontend",
+  Backend: "Backend",
+  RazmaIA: "Razma IA",
+  VoiceAssistant: "Voice Assistant",
+  EmailSystem: "Email System",
+  Localization: "Localization",
+  Translations: "Translations",
+  Weather: "Weather",
+  Geolocation: "Geolocation",
+  ThreeJS: "ThreeJS",
+  Deployment: "Deployment",
+  EnvironmentVariables: "Environment Variables",
 };
 
-export async function handleGetDocsList(req: Request, res: Response): Promise<void> {
+export async function handleGetDocsList(
+  req: Request,
+  res: Response,
+): Promise<void> {
   try {
     const docsDir = path.join(process.cwd(), "docs");
     const files = await fs.readdir(docsDir);
-    
+
     const mdFiles = files
-      .filter(file => file.endsWith(".md"))
-      .map(file => {
+      .filter((file) => file.endsWith(".md"))
+      .map((file) => {
         const id = path.basename(file, ".md");
         let title = titleMap[id] || id.replace(/([A-Z])/g, " $1").trim();
         // Capitalize first letter of title if fallback was used
@@ -55,7 +58,7 @@ export async function handleGetDocsList(req: Request, res: Response): Promise<vo
       "Geolocation",
       "ThreeJS",
       "Deployment",
-      "EnvironmentVariables"
+      "EnvironmentVariables",
     ];
 
     mdFiles.sort((a, b) => {
@@ -69,14 +72,22 @@ export async function handleGetDocsList(req: Request, res: Response): Promise<vo
 
     res.status(200).json(mdFiles);
   } catch (err: any) {
-    res.status(500).json({ error: "Impossible de lister la documentation.", details: err?.message || String(err) });
+    res
+      .status(500)
+      .json({
+        error: "Impossible de lister la documentation.",
+        details: err?.message || String(err),
+      });
   }
 }
 
-export async function handleGetDocContent(req: Request, res: Response): Promise<void> {
+export async function handleGetDocContent(
+  req: Request,
+  res: Response,
+): Promise<void> {
   try {
     const { id } = req.params;
-    
+
     // Safety check for path traversal
     if (!id || !/^[a-zA-Z0-9_-]+$/.test(id)) {
       res.status(400).json({ error: "Identifiant de document invalide." });
@@ -97,31 +108,49 @@ export async function handleGetDocContent(req: Request, res: Response): Promise<
       res.status(404).json({ error: "Document non trouvé." });
     }
   } catch (err: any) {
-    res.status(500).json({ error: "Erreur lors du chargement du document.", details: err?.message || String(err) });
+    res
+      .status(500)
+      .json({
+        error: "Erreur lors du chargement du document.",
+        details: err?.message || String(err),
+      });
   }
 }
 
-export async function handleContactForm(req: Request, res: Response): Promise<void> {
+export async function handleContactForm(
+  req: Request,
+  res: Response,
+): Promise<void> {
   try {
     const { name, senderEmail, subject, message } = req.body;
 
     if (!name || !senderEmail || !subject || !message) {
-      res.status(400).json({ error: "Tous les champs (nom, email, sujet, message) sont obligatoires." });
+      res
+        .status(400)
+        .json({
+          error:
+            "Tous les champs (nom, email, sujet, message) sont obligatoires.",
+        });
       return;
     }
 
     if (message.length < 20) {
-      res.status(400).json({ error: "Le message doit contenir au moins 20 caractères." });
+      res
+        .status(400)
+        .json({ error: "Le message doit contenir au moins 20 caractères." });
       return;
     }
 
     // Resolve approximate client IP
-    const rawIp = (req.headers["x-forwarded-for"] as string) || req.socket.remoteAddress || "127.0.0.1";
+    const rawIp =
+      (req.headers["x-forwarded-for"] as string) ||
+      req.socket.remoteAddress ||
+      "127.0.0.1";
     const ip = rawIp.split(",")[0].trim();
 
     // Geolocation lookup
     const geoData = await resolveGeoLocation(ip);
-    
+
     // User Agent details
     const uaHeader = req.headers["user-agent"];
     const uaData = parseUserAgent(uaHeader);
@@ -146,7 +175,7 @@ export async function handleContactForm(req: Request, res: Response): Promise<vo
       country: geoData.country,
       city: geoData.city,
       browser: uaData.browser,
-      platform: uaData.platform
+      platform: uaData.platform,
     });
 
     if (result.success) {
@@ -156,15 +185,27 @@ export async function handleContactForm(req: Request, res: Response): Promise<vo
         previewUrl: result.previewUrl,
       });
     } else {
-      res.status(500).json({ error: "Impossible d'envoyer l'e-mail. Veuillez réessayer plus tard.", details: result.error });
+      res
+        .status(500)
+        .json({
+          error: "Impossible d'envoyer l'e-mail. Veuillez réessayer plus tard.",
+          details: result.error,
+        });
     }
   } catch (err: any) {
-    res.status(500).json({ error: "Une erreur est survenue lors de l'envoi.", details: err?.message || String(err) });
+    res
+      .status(500)
+      .json({
+        error: "Une erreur est survenue lors de l'envoi.",
+        details: err?.message || String(err),
+      });
   }
 }
 
-export async function handleWeatherLookup(req: Request, res: Response): Promise<void> {
-  console.log("=== WEATHER ROUTE CALLED ===");
+export async function handleWeatherLookup(
+  req: Request,
+  res: Response,
+): Promise<void> {
   try {
     const { latitude, longitude } = req.body;
 
@@ -176,7 +217,12 @@ export async function handleWeatherLookup(req: Request, res: Response): Promise<
     const weather = await fetchWeather(Number(latitude), Number(longitude));
     res.status(200).json(weather);
   } catch (err: any) {
-    res.status(500).json({ error: "Une erreur est survenue lors de la récupération météo.", details: err?.message || String(err) });
+    res
+      .status(500)
+      .json({
+        error: "Une erreur est survenue lors de la récupération météo.",
+        details: err?.message || String(err),
+      });
   }
 }
 
@@ -206,20 +252,35 @@ export async function handleAIChat(req: Request, res: Response): Promise<void> {
       audio,
     });
   } catch (err: any) {
-    res.status(500).json({ error: "Erreur lors du traitement de l'assistant IA.", details: err?.message || String(err) });
+    res
+      .status(500)
+      .json({
+        error: "Erreur lors du traitement de l'assistant IA.",
+        details: err?.message || String(err),
+      });
   }
 }
 
-export async function handleVoiceFetch(req: Request, res: Response): Promise<void> {
+export async function handleVoiceFetch(
+  req: Request,
+  res: Response,
+): Promise<void> {
   try {
     const { text } = req.body;
     if (!text) {
-      res.status(400).json({ error: "Le texte est requis pour générer la voix." });
+      res
+        .status(400)
+        .json({ error: "Le texte est requis pour générer la voix." });
       return;
     }
     const audio = await generateVoice(text);
     res.status(200).json({ audio });
   } catch (err: any) {
-    res.status(500).json({ error: "Erreur lors de la génération de la voix.", details: err?.message || String(err) });
+    res
+      .status(500)
+      .json({
+        error: "Erreur lors de la génération de la voix.",
+        details: err?.message || String(err),
+      });
   }
 }

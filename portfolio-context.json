@@ -1,6 +1,7 @@
 {
   "profile": {
-     "avatar": "/images/logo/avatar.jpg",
+    "avatar": "/images/logo/avatar.png",
+    "avatar2": "/images/logo/avatar2.png",
     "name": "M. Brunel Razafimaharavo",
     "title": "Développeur Full Stack",
     "specialties": ["React", "Node.js", "Bases de Données", "Architectures Web Modernes"],
@@ -155,7 +156,7 @@
         "Gestion automatisée des paiements et délais"
       ],
       "github": "https://github.com/razafimaharavo-marion/menuiserie-management",
-      "demo": "https://menuiserie-demo.example.com"
+      "demo": "https://menuiserie.brunelcreative.com/"
     },
     {
       "id": "project-web-2",
@@ -219,7 +220,7 @@
         "Stockage cloud avec Firebase Firestore"
       ],
       "github": "https://github.com/razafimaharavo-marion/aura-ai-hub",
-      "demo": "https://aura-ai-demo.example.com"
+      "demo": "https://iassistant.brunelcreative.com/"
     },
     {
       "id": "project-mobile-1",
