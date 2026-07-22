@@ -138,16 +138,16 @@ export function ProjectCard({
     [isTransitioning, projects, requestProjectIndex],
   );
 
-  // Automated 5-second slider interval
+  // Automated 7-second slider interval
   useEffect(() => {
     if (!projects || projects.length <= 1) return;
 
     const timer = setInterval(() => {
       handleNext();
-    }, 5000);
+    }, 7000);
 
     return () => clearInterval(timer);
-  }, [handleNext, projects]); // Resetting on currentIndex change gives the user a full 5s on manual navigation
+  }, [handleNext, projects]); // Resetting on currentIndex change gives the user a full 7s on manual navigation
 
   if (!activeProject) return null;
 
