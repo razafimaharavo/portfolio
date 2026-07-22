@@ -1,5 +1,12 @@
 import express from "express";
-import { handleContactForm, handleWeatherLookup, handleAIChat, handleVoiceFetch, handleGetDocsList, handleGetDocContent } from "../controllers/portfolioController.ts";
+import {
+  handleContactForm,
+  handleWeatherLookup,
+  handleAIChat,
+  handleVoiceFetch,
+  handleGetDocsList,
+  handleGetDocContent,
+} from "../controllers/portfolioController.ts";
 
 const router = express.Router();
 
@@ -13,5 +20,8 @@ router.post("/voice", handleVoiceFetch);
 router.get("/docs", handleGetDocsList);
 router.get("/docs/:id", handleGetDocContent);
 
-export default router;
+router.get("/ping", (_req, res) => {
+  res.json({ success: true });
+});
 
+export default router;
