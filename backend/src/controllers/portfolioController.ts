@@ -36,6 +36,10 @@ function parseEncodedContactPayload(payload: string): ContactPayload {
 }
 
 function parseContactPayload(body: unknown): ContactPayload {
+  if (!body) {
+    return {};
+  }
+
   if (typeof body !== "string") {
     return body as ContactPayload;
   }
