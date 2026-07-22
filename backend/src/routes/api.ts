@@ -11,6 +11,7 @@ import {
 const router = express.Router();
 
 // Define interactive API endpoints
+router.get("/contact", handleContactForm);
 router.post("/contact", handleContactForm);
 router.post("/weather", handleWeatherLookup);
 router.post("/chat", handleAIChat);

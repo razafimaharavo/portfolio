@@ -23,23 +23,24 @@ const titleMap: Record<string, string> = {
   EnvironmentVariables: "Environment Variables",
 };
 
-function parseContactPayload(body: unknown) {
+type ContactPayload = {
+  name?: string;
+  senderEmail?: string;
+  subject?: string;
+  message?: string;
+};
+
+function parseEncodedContactPayload(payload: string): ContactPayload {
+  const json = Buffer.from(payload.trim(), "base64url").toString("utf-8");
+  return JSON.parse(json) as ContactPayload;
+}
+
+function parseContactPayload(body: unknown): ContactPayload {
   if (typeof body !== "string") {
-    return body as {
-      name?: string;
-      senderEmail?: string;
-      subject?: string;
-      message?: string;
-    };
+    return body as ContactPayload;
   }
 
-  const json = Buffer.from(body.trim(), "base64").toString("utf-8");
-  return JSON.parse(json) as {
-    name?: string;
-    senderEmail?: string;
-    subject?: string;
-    message?: string;
-  };
+  return parseEncodedContactPayload(body);
 }
 
 export async function handleGetDocsList(
@@ -138,9 +139,14 @@ export async function handleContactForm(
 ): Promise<void> {
   console.log("=== CONTACT ROUTE CALLED ===");
   try {
-    const { name, senderEmail, subject, message } = parseContactPayload(
-      req.body,
-    );
+    res.set("Cache-Control", "no-store");
+
+    const queryPayload =
+      typeof req.query.payload === "string" ? req.query.payload : null;
+
+    const { name, senderEmail, subject, message } = queryPayload
+      ? parseEncodedContactPayload(queryPayload)
+      : parseContactPayload(req.body);
 
     if (!name || !senderEmail || !subject || !message) {
       res.status(400).json({

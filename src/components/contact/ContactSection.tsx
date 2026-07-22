@@ -21,7 +21,10 @@ function encodePayload(payload: ContactFormData) {
   const binary = Array.from(bytes, (byte) => String.fromCharCode(byte)).join(
     "",
   );
-  return btoa(binary);
+  return btoa(binary)
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/, "");
 }
 
 export function ContactSection() {
@@ -73,17 +76,15 @@ export function ContactSection() {
     setMailResult(null);
 
     try {
-      const body = encodePayload({
+      const payload = encodePayload({
         name: pendingFormData.name,
         senderEmail: pendingFormData.senderEmail,
         subject: pendingFormData.subject,
         message: pendingFormData.message,
       });
+      const url = `/api/contact?${new URLSearchParams({ payload })}`;
 
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        body,
-      });
+      const response = await fetch(url);
 
       const contentType = response.headers.get("content-type") || "";
       const data = contentType.includes("application/json")
