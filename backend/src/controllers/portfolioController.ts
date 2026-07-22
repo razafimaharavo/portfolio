@@ -72,12 +72,10 @@ export async function handleGetDocsList(
 
     res.status(200).json(mdFiles);
   } catch (err: any) {
-    res
-      .status(500)
-      .json({
-        error: "Impossible de lister la documentation.",
-        details: err?.message || String(err),
-      });
+    res.status(500).json({
+      error: "Impossible de lister la documentation.",
+      details: err?.message || String(err),
+    });
   }
 }
 
@@ -108,12 +106,10 @@ export async function handleGetDocContent(
       res.status(404).json({ error: "Document non trouvé." });
     }
   } catch (err: any) {
-    res
-      .status(500)
-      .json({
-        error: "Erreur lors du chargement du document.",
-        details: err?.message || String(err),
-      });
+    res.status(500).json({
+      error: "Erreur lors du chargement du document.",
+      details: err?.message || String(err),
+    });
   }
 }
 
@@ -121,16 +117,15 @@ export async function handleContactForm(
   req: Request,
   res: Response,
 ): Promise<void> {
+  console.log("=== CONTACT ROUTE CALLED ===");
   try {
     const { name, senderEmail, subject, message } = req.body;
 
     if (!name || !senderEmail || !subject || !message) {
-      res
-        .status(400)
-        .json({
-          error:
-            "Tous les champs (nom, email, sujet, message) sont obligatoires.",
-        });
+      res.status(400).json({
+        error:
+          "Tous les champs (nom, email, sujet, message) sont obligatoires.",
+      });
       return;
     }
 
@@ -185,20 +180,16 @@ export async function handleContactForm(
         previewUrl: result.previewUrl,
       });
     } else {
-      res
-        .status(500)
-        .json({
-          error: "Impossible d'envoyer l'e-mail. Veuillez réessayer plus tard.",
-          details: result.error,
-        });
+      res.status(500).json({
+        error: "Impossible d'envoyer l'e-mail. Veuillez réessayer plus tard.",
+        details: result.error,
+      });
     }
   } catch (err: any) {
-    res
-      .status(500)
-      .json({
-        error: "Une erreur est survenue lors de l'envoi.",
-        details: err?.message || String(err),
-      });
+    res.status(500).json({
+      error: "Une erreur est survenue lors de l'envoi.",
+      details: err?.message || String(err),
+    });
   }
 }
 
@@ -217,12 +208,10 @@ export async function handleWeatherLookup(
     const weather = await fetchWeather(Number(latitude), Number(longitude));
     res.status(200).json(weather);
   } catch (err: any) {
-    res
-      .status(500)
-      .json({
-        error: "Une erreur est survenue lors de la récupération météo.",
-        details: err?.message || String(err),
-      });
+    res.status(500).json({
+      error: "Une erreur est survenue lors de la récupération météo.",
+      details: err?.message || String(err),
+    });
   }
 }
 
@@ -252,12 +241,10 @@ export async function handleAIChat(req: Request, res: Response): Promise<void> {
       audio,
     });
   } catch (err: any) {
-    res
-      .status(500)
-      .json({
-        error: "Erreur lors du traitement de l'assistant IA.",
-        details: err?.message || String(err),
-      });
+    res.status(500).json({
+      error: "Erreur lors du traitement de l'assistant IA.",
+      details: err?.message || String(err),
+    });
   }
 }
 
@@ -276,11 +263,9 @@ export async function handleVoiceFetch(
     const audio = await generateVoice(text);
     res.status(200).json({ audio });
   } catch (err: any) {
-    res
-      .status(500)
-      .json({
-        error: "Erreur lors de la génération de la voix.",
-        details: err?.message || String(err),
-      });
+    res.status(500).json({
+      error: "Erreur lors de la génération de la voix.",
+      details: err?.message || String(err),
+    });
   }
 }
