@@ -19,28 +19,38 @@ export function useWeather() {
       async (position) => {
         const { latitude, longitude } = position.coords;
         try {
-          const res = await fetch("/api/weather", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ latitude, longitude }),
-          });
+          const url = `/api/weather?${new URLSearchParams({
+            latitude: String(latitude),
+            longitude: String(longitude),
+          })}`;
+          const res = await fetch(url);
+          const contentType = res.headers.get("content-type") || "";
+          const data = contentType.includes("application/json")
+            ? await res.json()
+            : null;
+
+          if (!data) {
+            throw new Error("Unexpected non-JSON weather response");
+          }
+
           if (res.ok) {
-            const data: WeatherInfo = await res.json();
-            setWeather(data);
-            
+            setWeather(data as WeatherInfo);
+
             if (forceWithSpeech && typeof window !== "undefined") {
               const speakText = (txt: string) => {
                 if ("speechSynthesis" in window) {
-                   window.speechSynthesis.cancel();
-                   const utterance = new SpeechSynthesisUtterance(txt);
-                   utterance.lang = "fr-FR";
-                   window.speechSynthesis.speak(utterance);
+                  window.speechSynthesis.cancel();
+                  const utterance = new SpeechSynthesisUtterance(txt);
+                  utterance.lang = "fr-FR";
+                  window.speechSynthesis.speak(utterance);
                 }
               };
               speakText(`Géolocalisation réussie. Bienvenue à ${data.city}.`);
             }
           } else {
-            throw new Error("Could not fetch remote weather info");
+            throw new Error(
+              data.error || "Could not fetch remote weather info",
+            );
           }
         } catch (err) {
           console.error("Weather error:", err);
@@ -56,7 +66,7 @@ export function useWeather() {
         } else {
           setWeatherError("Calcul impossible");
         }
-      }
+      },
     );
   };
 

@@ -13,6 +13,7 @@ const router = express.Router();
 // Define interactive API endpoints
 router.get("/contact", handleContactForm);
 router.post("/contact", handleContactForm);
+router.get("/weather", handleWeatherLookup);
 router.post("/weather", handleWeatherLookup);
 router.post("/chat", handleAIChat);
 router.post("/voice", handleVoiceFetch);

@@ -47,6 +47,10 @@ function parseContactPayload(body: unknown): ContactPayload {
   return parseEncodedContactPayload(body);
 }
 
+function getSingleValue(value: unknown): unknown {
+  return Array.isArray(value) ? value[0] : value;
+}
+
 export async function handleGetDocsList(
   req: Request,
   res: Response,
@@ -229,7 +233,16 @@ export async function handleWeatherLookup(
   res: Response,
 ): Promise<void> {
   try {
-    const { latitude, longitude } = req.body;
+    res.set("Cache-Control", "no-store");
+
+    const latitude =
+      req.method === "GET"
+        ? getSingleValue(req.query.latitude)
+        : req.body.latitude;
+    const longitude =
+      req.method === "GET"
+        ? getSingleValue(req.query.longitude)
+        : req.body.longitude;
 
     if (latitude === undefined || longitude === undefined) {
       res.status(400).json({ error: "Latitude et Longitude sont requises." });
