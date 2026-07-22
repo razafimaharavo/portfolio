@@ -67,6 +67,8 @@ export function ProjectCard({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1); // 1 = right/next, -1 = left/prev
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [imageReady, setImageReady] = useState(true);
+  const [settledProject, setSettledProject] = useState<Project | null>(null);
   const currentIndexRef = useRef(0);
   const transitionIdRef = useRef(0);
   const { t, language } = useLanguage();
@@ -112,6 +114,20 @@ export function ProjectCard({
   useEffect(() => {
     if (!activeProject) return;
     preloadProjectImage(activeProject.image);
+
+    if (!settledProject) {
+      setSettledProject(activeProject);
+      return;
+    }
+
+    if (settledProject.id !== activeProject.id) {
+      setImageReady(false);
+    }
+  }, [activeProject, settledProject]);
+
+  const handleImageSettled = useCallback(() => {
+    setImageReady(true);
+    setSettledProject(activeProject);
   }, [activeProject]);
 
   const handleNext = useCallback(
@@ -138,16 +154,16 @@ export function ProjectCard({
     [isTransitioning, projects, requestProjectIndex],
   );
 
-  // Automated 5-second slider interval
+  // Automated 7-second slider interval
   useEffect(() => {
     if (!projects || projects.length <= 1) return;
 
     const timer = setInterval(() => {
       handleNext();
-    }, 5000);
+    }, 7000);
 
     return () => clearInterval(timer);
-  }, [handleNext, projects]); // Resetting on currentIndex change gives the user a full 5s on manual navigation
+  }, [handleNext, projects]); // Resetting on currentIndex change gives the user a full 7s on manual navigation
 
   if (!activeProject) return null;
 
@@ -273,6 +289,18 @@ export function ProjectCard({
           )}
 
           {/* Animated Image Transition */}
+          {settledProject &&
+            settledProject.id !== activeProject.id &&
+            !imageReady && (
+              <img
+                src={settledProject.image}
+                alt=""
+                aria-hidden="true"
+                referrerPolicy="no-referrer"
+                className="absolute inset-0 z-0 w-full h-full object-cover"
+              />
+            )}
+
           <AnimatePresence mode="popLayout" initial={false} custom={direction}>
             <motion.div
               key={activeProject.id}
@@ -287,9 +315,11 @@ export function ProjectCard({
                 src={activeProject.image}
                 alt={translatedProject.name}
                 referrerPolicy="no-referrer"
-                loading="lazy"
+                loading="eager"
                 decoding="async"
-                className="w-full h-full object-cover"
+                onLoad={handleImageSettled}
+                onError={handleImageSettled}
+                className={`w-full h-full object-cover transition-opacity duration-150 ${imageReady ? "opacity-100" : "opacity-0"}`}
               />
             </motion.div>
           </AnimatePresence>
