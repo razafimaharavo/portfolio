@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { RefreshCw } from "lucide-react";
 import { Project } from "../../types/portfolio.types.ts";
 import { ProjectCard } from "./ProjectCard.tsx";
@@ -25,10 +25,15 @@ export function ProjectsSection({
   const { t, language } = useLanguage();
 
   // Group all projects by their correct categories
-  const allProjects = (portfolio.projects || []) as Project[];
-  const desktopProjects = allProjects.filter((p) => p.category === "desktop");
-  const webProjects = allProjects.filter((p) => p.category === "web");
-  const mobileProjects = allProjects.filter((p) => p.category === "mobile");
+  const { desktopProjects, webProjects, mobileProjects } = useMemo(() => {
+    const allProjects = (portfolio.projects || []) as Project[];
+
+    return {
+      desktopProjects: allProjects.filter((p) => p.category === "desktop"),
+      webProjects: allProjects.filter((p) => p.category === "web"),
+      mobileProjects: allProjects.filter((p) => p.category === "mobile"),
+    };
+  }, []);
 
   const handleMixClick = () => {
     // Increment local trigger to scramble the carousel slide starting positions
