@@ -10,6 +10,7 @@ async function startServer() {
   // Configure JSON and URL body parsers for email, weather & AI requests
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
+  app.use(express.text({ type: "text/plain", limit: "20kb" }));
 
   // Register modern API routing
   app.use("/api", apiRouter);

@@ -15,6 +15,15 @@ import { ContactForm, ContactFormData } from "./ContactForm.tsx";
 import { EmailConfirmationModal } from "./EmailConfirmationModal.tsx";
 import { useLanguage } from "../../i18n/LanguageContext.tsx";
 
+function encodePayload(payload: ContactFormData) {
+  const json = JSON.stringify(payload);
+  const bytes = new TextEncoder().encode(json);
+  const binary = Array.from(bytes, (byte) => String.fromCharCode(byte)).join(
+    "",
+  );
+  return btoa(binary);
+}
+
 export function ContactSection() {
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
   const [pendingFormData, setPendingFormData] =
@@ -64,7 +73,7 @@ export function ContactSection() {
     setMailResult(null);
 
     try {
-      const body = new URLSearchParams({
+      const body = encodePayload({
         name: pendingFormData.name,
         senderEmail: pendingFormData.senderEmail,
         subject: pendingFormData.subject,
@@ -73,7 +82,6 @@ export function ContactSection() {
 
       const response = await fetch("/api/contact", {
         method: "POST",
-        headers: { Accept: "application/json" },
         body,
       });
 

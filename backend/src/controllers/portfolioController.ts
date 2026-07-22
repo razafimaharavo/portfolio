@@ -23,6 +23,25 @@ const titleMap: Record<string, string> = {
   EnvironmentVariables: "Environment Variables",
 };
 
+function parseContactPayload(body: unknown) {
+  if (typeof body !== "string") {
+    return body as {
+      name?: string;
+      senderEmail?: string;
+      subject?: string;
+      message?: string;
+    };
+  }
+
+  const json = Buffer.from(body.trim(), "base64").toString("utf-8");
+  return JSON.parse(json) as {
+    name?: string;
+    senderEmail?: string;
+    subject?: string;
+    message?: string;
+  };
+}
+
 export async function handleGetDocsList(
   req: Request,
   res: Response,
@@ -119,7 +138,9 @@ export async function handleContactForm(
 ): Promise<void> {
   console.log("=== CONTACT ROUTE CALLED ===");
   try {
-    const { name, senderEmail, subject, message } = req.body;
+    const { name, senderEmail, subject, message } = parseContactPayload(
+      req.body,
+    );
 
     if (!name || !senderEmail || !subject || !message) {
       res.status(400).json({
